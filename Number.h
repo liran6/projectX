@@ -13,5 +13,6 @@ class Number : public Expression{
     double value;
 public:
     Number(double value);
+    virtual double getValue(){ return value;};
 };
 #endif //PROJECTX_NUMBER_H

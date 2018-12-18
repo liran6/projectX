@@ -10,11 +10,14 @@
 using namespace std;
 
 class BinaryExpression: public Expression{
+protected:
     Expression* leftExpression;
     Expression* rightExpression;
 public:
     BinaryExpression(Expression *leftExpression, Expression *rightExpression);
 
+     virtual Expression* getLeftExpression(){return leftExpression;};
+     virtual Expression* getRightExpression(){return rightExpression;};
 
 
 };
