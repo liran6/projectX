@@ -3,4 +3,4 @@ project(projectX)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(projectX main.cpp Lexer.cpp Lexer.h)
+add_executable(projectX main.cpp Lexer.cpp Lexer.h Expression.h Number.cpp Number.h BinaryExpression.cpp BinaryExpression.h Plus.cpp)
