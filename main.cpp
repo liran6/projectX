@@ -1,16 +1,21 @@
 #include <iostream>
-#include "Lexer.h"
+#include "Expression.h"
+#include "ShuntingYard.h"
 
 using namespace std;
 
 int main() {
-    Lexer lexer;
-    vector<string> *vec;
-    vec = lexer.lexer("testForLexer.txt");
-for(int i= 0; i<vec->size(); i++){
-    for(int j = 0; j<i; j++){
-        cout<< vec[i][j]<<endl;
-    }
-}
-    //cout << vec[3][5] << endl;
+    cout << "Hello, World!" << endl;
+    ShuntingYard x = ShuntingYard();
+    Expression* a = x.expressionEvaluate("10 + 2 * 6");
+    Expression* b = x.expressionEvaluate("100 * 2 + 12");
+    Expression* c = x.expressionEvaluate("100 * ( 2 + 12 )");
+    Expression* d = x.expressionEvaluate("100 * ( 2 + 12 ) / 14");
+    Expression* e = x.expressionEvaluate("-12");
+//    double r = i->calculate();
+    cout<<a->calculate()<<endl;
+    cout<<b->calculate()<<endl;
+    cout<<c->calculate()<<endl;
+    cout<<d->calculate()<<endl;
+    return 0;
 }
