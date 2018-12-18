@@ -7,7 +7,10 @@
 
 #include "BinaryExpression.h"
 
-class Minus : BinaryExpression{
+using namespace std;
+
+class Minus : public BinaryExpression{
+
 public:
     Minus(Expression *leftExpression, Expression *rightExpression);
     double calculate();

@@ -5,7 +5,7 @@
 #include "Minus.h"
 
 Minus::Minus(Expression *leftExpression, Expression *rightExpression) : BinaryExpression(leftExpression,
-                                                                                         rightExpression) {}
+                                                                                        rightExpression) {}
 double Minus ::calculate() {
     return getLeftExpression()->calculate() - getRightExpression()->calculate();
 }
