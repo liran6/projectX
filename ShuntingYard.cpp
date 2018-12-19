@@ -35,80 +35,83 @@ Expression *ShuntingYard::applyOp(Expression *leftVal, Expression *rightVal, cha
 // expression after evaluation.
 Expression * ShuntingYard::expressionEvaluate(string tokens){
     int i;
-
+    bool afterOp = true;
+    bool makeNeg = false;
     // stack to store integer values.
     stack <Expression*> values;
 
     // stack to store operators.
     stack <char> ops;
 
-    for(i = 0; i < tokens.length(); i++){
+    for(i = 0; i < tokens.length(); i++) {
 
         // Current token is a whitespace,
         // skip it.
-        if(tokens[i] == ' ')
+        if (tokens[i] == ' ')
             continue;
+        else if (tokens[i] == '-' && afterOp) {
+//                Expression *num = new Number(0);
+//                values.push(num);
+//            if(ops.top() == '*' || ops.top() == '/'){
+//                Expression *num = new Number(-1);
+                makeNeg = true;
+//
+//            }
 
+        }
             // Current token is an opening
             // brace, push it to 'ops'
-        else if(tokens[i] == '('){
+        else if (tokens[i] == '(') {
+            if(makeNeg){
+                Expression *num = new Number(-1);
+                values.push(num);
+                ops.push('*');
+                makeNeg = false;
+            }
             ops.push(tokens[i]);
+            afterOp = true;
+        }else if(tokens[i] == '.' && isdigit(tokens[i+1])){
+
         }
 
             // Current token is a number, push
             // it to stack for numbers.
-        else if(isdigit(tokens[i])){
-            int val = 0;
-
-//            if(tokens[i+1] == '.'){
-//                i++;
-//                val += tokens[i]
-//            }
-            // There may be more than one
-            // digits in number.
-            while(i < tokens.length() &&
-                  isdigit(tokens[i]))
-            {
-                val = (val*10) + (tokens[i]-'0');
-                i++;
+        else if (isdigit(tokens[i]) || (tokens[i] == '.' && isdigit(tokens[i+1]))) {
+            double val = 0;
+            int floatCheck = 0;
+            int afterDot = 1;
+            while (i < tokens.length() && ( tokens[i] == '.' ||
+                   isdigit(tokens[i]))) {
+                if(floatCheck > 1){
+                    throw runtime_error("Exception, cannot put 2 dots in a number.");
+                }
+                if(tokens[i] == '.'){
+                    floatCheck ++;
+                    i++;
+                }else if(floatCheck == 0) {
+                    val = (val * 10) + (tokens[i] - '0');
+                    i++;
+                }else{
+                    val += ((double)tokens[i] - '0') / (10 * afterDot);
+                    i++;
+                    afterDot++;
+                }
             }
 
             i--;
-            Expression* num = new Number(val);
+            if (makeNeg){
+                val *= -1;
+                makeNeg = false;
+            }
+            Expression *num = new Number(val);
             values.push(num);
+            afterOp = false;
         }
 
             // Closing brace encountered, solve
             // entire brace.
-        else if(tokens[i] == ')')
-        {
-            while(!ops.empty() && ops.top() != '(')
-            {
-                Expression *val2 = values.top();
-                values.pop();
-
-                Expression* val1 = values.top();
-                values.pop();
-
-                char op = ops.top();
-                ops.pop();
-
-                values.push(applyOp(val1, val2, op));
-            }
-
-            // pop opening brace.
-            ops.pop();
-        }
-
-            // Current token is an operator.
-        else
-        {
-            // While top of 'ops' has same or greater
-            // precedence to current token, which
-            // is an operator. Apply operator on top
-            // of 'ops' to top two elements in values stack.
-            while(!ops.empty() && precedence(ops.top())
-                                  >= precedence(tokens[i])){
+        else if (tokens[i] == ')') {
+            while (!ops.empty() && ops.top() != '(') {
                 Expression *val2 = values.top();
                 values.pop();
 
@@ -121,8 +124,41 @@ Expression * ShuntingYard::expressionEvaluate(string tokens){
                 values.push(applyOp(val1, val2, op));
             }
 
+            // pop opening brace.
+            ops.pop();
+        }
+            // Current token is an operator.
+        else {
+                if(tokens[i] == '+' && afterOp){
+                    continue;
+                }
+                if((tokens[i] == '/' || tokens [i] == '*') && afterOp){
+                    throw runtime_error("Syntax ERROR!, fuck you! madafaka! ");
+                }
+                if(values.empty() && (tokens[i] == '/' || tokens [i] == '*')){
+                    throw runtime_error("Syntax ERROR!, fuck you! madafaka! ");
+                }
+                // While top of 'ops' has same or greater
+                // precedence to current token, which
+                // is an operator. Apply operator on top
+                // of 'ops' to top two elements in values stack.
+                while (!ops.empty() && precedence(ops.top())
+                                       >= precedence(tokens[i])) {
+                    Expression *val2 = values.top();
+                    values.pop();
+
+                    Expression *val1 = values.top();
+                    values.pop();
+
+                    char op = ops.top();
+                    ops.pop();
+
+                    values.push(applyOp(val1, val2, op));
+                }
+
             // Push current token to 'ops'.
             ops.push(tokens[i]);
+            afterOp = true;
         }
     }
 

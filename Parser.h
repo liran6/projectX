@@ -15,12 +15,15 @@ using namespace std;
 
 class Parser {
 Lexer* lexer;
-map<string, Command> map1;
+Command command;
+map<string, command> map1;
 vector<string> *vecOfComments = lexer->lexer("commandsForTheParser.txt");
 public:
 void parseToCommand() {
     for (vector<string>::iterator it = vecOfComments->begin(); it != vecOfComments->end(); it++) {
         cout << *it << endl;
+        map1.insert(*it, command);
+        if
     }
 }
 
