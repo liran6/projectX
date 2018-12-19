@@ -93,7 +93,7 @@ Expression * ShuntingYard::expressionEvaluate(string tokens){
                     val = (val * 10) + (tokens[i] - '0');
                     i++;
                 }else{
-                    val += ((double)tokens[i] - '0') / (10 * afterDot);
+                    val += ((double)tokens[i] - '0') / (pow(10 , afterDot));
                     i++;
                     afterDot++;
                 }
