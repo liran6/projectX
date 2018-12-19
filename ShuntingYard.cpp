@@ -70,9 +70,10 @@ Expression * ShuntingYard::expressionEvaluate(string tokens){
             }
             ops.push(tokens[i]);
             afterOp = true;
-        }else if(tokens[i] == '.' && isdigit(tokens[i+1])){
 
-        }
+       }//else if(tokens[i] == '.' && isdigit(tokens[i+1])){
+//
+//        }
 
             // Current token is a number, push
             // it to stack for numbers.
