@@ -46,6 +46,12 @@ int main() {
     list1.push_back(i);
     Expression* i1 = x.expressionEvaluate(" (0.8 -(0.2 * 0.5) + 0.8 ) / 0.5 ");
     list1.push_back(i1);
+    Expression* i2 = x.expressionEvaluate(" 1/3 ");
+    list1.push_back(i2);
+    Expression* i3 = x.expressionEvaluate(" 1 / 3 / 1 / 4 / 1 / 5");
+    list1.push_back(i3);
+    Expression* i4 = x.expressionEvaluate(" 1 / 3 * 1 / 4 * 1 / 5 ");
+    list1.push_back(i4);
 
 
     for (Expression* e : list1){
