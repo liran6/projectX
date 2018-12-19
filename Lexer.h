@@ -21,12 +21,12 @@ public:
 
 
     vector<string> *lexer(string fileX){
-        vector<string> *vecOfComments = new vector<string>;
+        vector<string> *vecOfCommands = new vector<string>;
         //open the file
         ifstream in(fileX.c_str());
         if(!in.is_open()){//check if the file is not open.
             cout << "Cannot open the File : " << fileX << endl;
-            return vecOfComments;
+            return vecOfCommands;
         }
         string temp;
         while (getline(in, line)){
@@ -35,12 +35,12 @@ public:
                     temp += line[i];
                 }
                 else{
-                    vecOfComments->push_back(temp);
+                    vecOfCommands->push_back(temp);
                     temp = "";
                 }
             }
         }
-        return vecOfComments;
+        return vecOfCommands;
     }
 };
 

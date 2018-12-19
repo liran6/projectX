@@ -50,8 +50,10 @@ int main() {
     list1.push_back(i2);
     Expression* i3 = x.expressionEvaluate(" 1 / 3 / 1 / 4 / 1 / 5");
     list1.push_back(i3);
-    Expression* i4 = x.expressionEvaluate(" 1 / 3 * 1 / 4 * 1 / 5 ");
+    Expression* i4 = x.expressionEvaluate(" (1 / 3)* (1 / 4) * (1 / 5) ");
     list1.push_back(i4);
+    Expression* i5 = x.expressionEvaluate(" 51.1676 + 0.8324");
+    list1.push_back(i5);
 
 
     for (Expression* e : list1){
@@ -78,6 +80,9 @@ int main() {
  * -12
  * 0.1
  * 3
+ * 0.333333
+ * 0.166667
+ * 0.166667
  * */
 
     return 0;

@@ -60,7 +60,7 @@ Expression * ShuntingYard::expressionEvaluate(string tokens){
 
         }
             // Current token is an opening
-            // brace, push it to 'ops'
+            // brace, push it to "ops"
         else if (tokens[i] == '(') {
             if(makeNeg){
                 Expression *num = new Number(-1);
@@ -70,9 +70,10 @@ Expression * ShuntingYard::expressionEvaluate(string tokens){
             }
             ops.push(tokens[i]);
             afterOp = true;
-        }else if(tokens[i] == '.' && isdigit(tokens[i+1])){
 
-        }
+       }//else if(tokens[i] == '.' && isdigit(tokens[i+1])){
+//
+//        }
 
             // Current token is a number, push
             // it to stack for numbers.
@@ -92,7 +93,7 @@ Expression * ShuntingYard::expressionEvaluate(string tokens){
                     val = (val * 10) + (tokens[i] - '0');
                     i++;
                 }else{
-                    val += ((double)tokens[i] - '0') / (10 * afterDot);
+                    val += ((double)tokens[i] - '0') / (pow(10 , afterDot));
                     i++;
                     afterDot++;
                 }
