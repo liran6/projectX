@@ -18,6 +18,8 @@ class Lexer {
 public:
     ofstream fileX;
     string line;
+
+
     vector<string> *lexer(string fileX){
         vector<string> *vecOfComments = new vector<string>;
         //open the file
@@ -38,10 +40,8 @@ public:
                 }
             }
         }
-
         return vecOfComments;
     }
-
 };
 
 

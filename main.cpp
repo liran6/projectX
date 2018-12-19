@@ -1,10 +1,15 @@
 #include <iostream>
 #include "Expression.h"
 #include "ShuntingYard.h"
+#include "Lexer.h"
+#include "Parser.h"
 
 using namespace std;
 
 int main() {
+    Parser *pars;
+    pars->parseToCommand();
+    /*
     cout << "Hello, World!" << endl;
     ShuntingYard x = ShuntingYard();
     Expression* a = x.expressionEvaluate("10 + 2 * 6");
@@ -17,5 +22,7 @@ int main() {
     cout<<b->calculate()<<endl;
     cout<<c->calculate()<<endl;
     cout<<d->calculate()<<endl;
+    */
+
     return 0;
 }
