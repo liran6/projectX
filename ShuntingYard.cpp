@@ -60,7 +60,7 @@ Expression * ShuntingYard::expressionEvaluate(string tokens){
 
         }
             // Current token is an opening
-            // brace, push it to 'ops'
+            // brace, push it to "ops"
         else if (tokens[i] == '(') {
             if(makeNeg){
                 Expression *num = new Number(-1);
