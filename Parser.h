@@ -1,4 +1,4 @@
-/*
+
 //
 // Created by yuval on 12/19/18.
 //
@@ -24,7 +24,7 @@ void parseToCommand() {
     for (vector<string>::iterator it = vecOfComments->begin(); it != vecOfComments->end(); it++) {
         cout << *it << endl;
         commandMap.insert(*it, command);
-        if
+
     }
 }
 
@@ -34,4 +34,4 @@ void parseToCommand() {
 
 
 #endif //PROJECTX_PARSER_H
-*/
+

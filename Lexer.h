@@ -15,13 +15,24 @@
 
 using namespace std;
 class Lexer {
+    vector<string> *vecOfCommands = new vector<string>;
+public:
+    vector<string> *getVecOfCommands() const {
+        return vecOfCommands;
+    }
+
 public:
     ofstream fileX;
+    string fileName = "";
     string line;
+    Lexer(string fileName){
+        this->fileName = fileName;
+        this->vecOfCommands = lexer(fileName);
+    }
 
 
     vector<string> *lexer(string fileX){
-        vector<string> *vecOfCommands = new vector<string>;
+
         //open the file
         ifstream in(fileX.c_str());
         if(!in.is_open()){//check if the file is not open.
@@ -42,6 +53,7 @@ public:
         }
         return vecOfCommands;
     }
+
 };
 
 
