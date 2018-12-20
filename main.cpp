@@ -2,11 +2,15 @@
 #include <list>
 #include "Expression.h"
 #include "ShuntingYard.h"
+#include "Lexer.h"
 
 using namespace std;
 
 int main() {
-    ShuntingYard x = ShuntingYard();
+    Lexer lexer("commandsForTheParser.txt");
+    cout << lexer.getVecOfCommands() << endl;
+
+/*    ShuntingYard x = ShuntingYard();
     list < Expression * > list1;
     Expression* a = x.expressionEvaluate("10 + 2 * 6");
     list1.push_back(a);
@@ -58,7 +62,7 @@ int main() {
 
     for (Expression* e : list1){
         cout<< e->calculate()<<endl;
-    }
+    }*/
 
 /*output:
  * 22

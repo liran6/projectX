@@ -17,24 +17,17 @@ using namespace std;
 class Lexer {
     vector<string> *vecOfCommands = new vector<string>;
 public:
-    vector<string> *getVecOfCommands() const {
-        return vecOfCommands;
-    }
-
-public:
     ofstream fileX;
     string fileName = "";
     string line;
-    Lexer(string fileName){
+    Lexer(string fileName) {
         this->fileName = fileName;
         this->vecOfCommands = lexer(fileName);
     }
-
-
     vector<string> *lexer(string fileX){
 
         //open the file
-        ifstream in(fileX.c_str());
+        ifstream in(fileX);
         if(!in.is_open()){//check if the file is not open.
             cout << "Cannot open the File : " << fileX << endl;
             return vecOfCommands;
@@ -51,6 +44,11 @@ public:
                 }
             }
         }
+        return vecOfCommands;
+    }
+
+
+    vector<string> *getVecOfCommands() const {
         return vecOfCommands;
     }
 
