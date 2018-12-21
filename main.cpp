@@ -8,6 +8,13 @@ using namespace std;
 
 int main() {
     Lexer lexer("commandsForTheParser.txt");
+    int iter;
+    for (vector<char*>::const_iterator iter = lexer.getVecOfCommands();
+         iter != getVecOfCommands().end(); ++iter)
+        cout << *iter << endl;
+    cout << lexer.getVecOfCommands() << endl;
+    cout << lexer.getVecOfCommands() << endl;
+    cout << lexer.getVecOfCommands() << endl;
     cout << lexer.getVecOfCommands() << endl;
 
 /*    ShuntingYard x = ShuntingYard();
