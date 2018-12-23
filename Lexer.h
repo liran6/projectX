@@ -27,7 +27,41 @@ public:
         this->vecOfCommands = lexerToVector(fileName);
     }
 
-    vector<string> *lexerToVector(string fileName) {
+    vector<string> txtToVect(string str){
+        ifstream fileX(str);
+        vector<string> *vec = new vector<string>;
+        if(!fileX.is_open()){
+            cout << "Can't open the file: " << str << endl;
+        }
+        else{
+            string toLex = "";
+            int i =0;
+            while(str[i] != '\n'){
+                toLex.push_back(str[i]);
+            }
+            i++;
+
+                    vec = lexerToVector(toLex);
+        }
+        return *vec;
+    }
+
+    vector<string> *lexerToVector(string fileName){
+        string splitedWord = "";
+        for(int i = 0; i< fileName.length(); i++) {
+            if (fileName[i] == '\n' || fileName[i] == '\r' || fileName[i] == '\t') {
+                i++;
+            } else if (fileName[i] == ' ') {
+                vecOfCommands->push_back(splitedWord);
+                splitedWord = "";
+            } else {
+                splitedWord.push_back(fileName.at(i));
+
+            }
+        }
+        return vecOfCommands;
+    }
+/*    vector<string> *lexerToVector(string fileName) {
         ifstream fileX(fileName);
         if (fileX.is_open()) {
             while (!fileX.eof()) {
@@ -46,7 +80,7 @@ public:
             }
         }
         return vecOfCommands;
-    }
+    }*/
 /*    vector<string> *lexer(string fileName){
 
         //open the file

@@ -7,15 +7,26 @@
 using namespace std;
 
 int main() {
-    Lexer lexer("commandsForTheParser.txt");
+    /*cout<< "insert input bitch"<< endl;*/
+    string str = "    rudder = (h0 -heading)/20";
+    /*getline(cin, str);*/
+    Lexer lexer(str);
     int iter;
-    for (vector<char*>::const_iterator iter = lexer.getVecOfCommands();
-         iter != getVecOfCommands().end(); ++iter)
+/*    vector<string> vec = lexer.txtToVect(str);*/
+
+    vector<string> *vec = lexer.lexerToVector(lexer.fileName);
+
+/*    for (vector<char*>::const_iterator iter = lexer.getVecOfCommands();
+         iter != getVecOfCommands().end(); ++iter) {
+        char firstsquare = lexer.getVecOfCommands()->at(iter);
         cout << *iter << endl;
-    cout << lexer.getVecOfCommands() << endl;
-    cout << lexer.getVecOfCommands() << endl;
-    cout << lexer.getVecOfCommands() << endl;
-    cout << lexer.getVecOfCommands() << endl;
+        cout << lexer.getVecOfCommands() << endl;
+        cout << lexer.getVecOfCommands() << endl;
+        cout << lexer.getVecOfCommands() << endl;
+        cout << lexer.getVecOfCommands() << endl;*/
+
+    return 0;
+    }
 
 /*    ShuntingYard x = ShuntingYard();
     list < Expression * > list1;
@@ -95,6 +106,3 @@ int main() {
  * 0.166667
  * 0.166667
  * */
-
-    return 0;
-}
