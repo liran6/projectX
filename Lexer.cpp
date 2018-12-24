@@ -2,29 +2,31 @@
 // Created by yuval on 12/18/18.
 //
 
-#include "Lexer.h" //l
+#include "Lexer.h"
+#define LINE_SEPARATOR "@"
 
-Lexer::Lexer(string fileName) {
+vector<string> Lexer::lexer(string fileName) {
     //constructor
-    this->fileName = fileName;
     if (fileName[fileName.length() - 1] == 't' && (fileName[fileName.length() - 2]) == 'x' &&
         fileName[fileName.length() - 4] == '.') {
-        this->vecOfCommands = txtToVec(fileName);
+        txtToVec(fileName);
     } else {
-        this->vecOfCommands = lexerToVector(fileName);
+        lexerToVector(fileName);
     }
+    return this->vecOfCommands;
 }
 
-vector<string> *Lexer::txtToVec(string str) {
-    string temp = "";
-    ifstream fileX(str);
+void Lexer::txtToVec(string str) {
+    string line;
+    ifstream file;
+    file.open(str);
 //        vector<string> vec;
-    //fileX.open (str, ifstream::in);
-    if(!fileX.is_open()){
+    //file.open (str, ifstream::in);
+    if(!file.is_open()){
         cout << "Can't open the file: " << str << endl;
     }
     else{
-        while (getline(fileX, line)){
+        while (getline(file, line)){
 //                for (int i = 0; i< line.length(); i++){
 //                    if(line[i] != ' ') {// adding all the whitespace
 //                        temp += line[i];
@@ -37,12 +39,12 @@ vector<string> *Lexer::txtToVec(string str) {
             splitToExpression(line);
         }
     }
-    return this->vecOfCommands;
+
 }
 
 void Lexer::splitToExpression(string line) {
     string expression;
-    int splitter;
+    int splitter = 0;
 
     while(splitter != -1){
         splitter = line.find(' ');
@@ -52,26 +54,25 @@ void Lexer::splitToExpression(string line) {
             continue;
         }
         line = line.substr(splitter + 1, line.length());
-        this->vecOfCommands->push_back(expression);
+        this->vecOfCommands.push_back(expression);
     }
-    this->vecOfCommands->push_back(LINE_SEPARATOR);
-
-
+    this->vecOfCommands.push_back(LINE_SEPARATOR);
 
 }
 
-vector<string> *Lexer::lexerToVector(string fileName) {
+void Lexer::lexerToVector(string fileName) {
 
     string splitedWord = "";
     for(int i = 0; i< fileName.length(); i++) {
         if (fileName[i] == '\n' || fileName[i] == '\r' || fileName[i] == '\t') {
             i++;
         } else if (fileName[i] == ' ') {
-            vecOfCommands->push_back(splitedWord);
+            vecOfCommands.push_back(splitedWord);
             splitedWord = "";
         } else {
             splitedWord.push_back(fileName[i]);
         }
     }
-    return vecOfCommands;
 }
+
+
