@@ -8,13 +8,13 @@ using namespace std;
 
 int main() {
     /*cout<< "insert input bitch"<< endl;*/
-    string str = "    rudder = (h0 -heading)/20";
-    /*getline(cin, str);*/
+    string str = "testForLexer.txt";
     Lexer lexer(str);
-    int iter;
-/*    vector<string> vec = lexer.txtToVect(str);*/
-
-    vector<string> *vec = lexer.lexerToVector(lexer.fileName);
+    string strFromCommandLine = "hello world and be happy";
+    Lexer lexerFromCommand(strFromCommandLine);
+    cout << lexer.vecOfCommands->at(0) << endl;
+    cout << "london goodbye" << endl;
+    cout << lexerFromCommand.vecOfCommands->at(0) << endl;
 
 /*    for (vector<char*>::const_iterator iter = lexer.getVecOfCommands();
          iter != getVecOfCommands().end(); ++iter) {
