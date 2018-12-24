@@ -8,9 +8,10 @@
 #include "Expression.h"
 
 //
-class Command: public Expression {
+class Command
+{
 public:
-    virtual double execute(string s) = 0;
+    virtual double execute( int i) = 0;
 
 };
 
