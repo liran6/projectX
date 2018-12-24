@@ -12,12 +12,31 @@
 #include <map>
 #include <iostream>
 #include <fstream>
+#define SEPARATOR "@"
 using namespace std;
 
 class Parser {
     Lexer* lexer;
 
 
+
+void sendToCommand(string strFromLexer){
+
+    lexer->getVecOfCommands():
+    for(int i = 0; )
+}
+
+string lineXfromVector(vector vec, int index){
+
+    while(vec.at(index) != SEPARATOR) {
+        int i=0;
+        string str[i] = (string) vec.at(index);
+        i++;
+        index++;
+
+    }
+    return str;
+}
 };
 
 
