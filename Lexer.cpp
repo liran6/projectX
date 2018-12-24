@@ -2,8 +2,10 @@
 // Created by yuvall on 12/18/18.
 //
 
+#include <regex>
 #include "Lexer.h"
 #define LINE_SEPARATOR "@"
+using namespace std;
 
 vector<string> Lexer::lexer(string fileName) {
     //constructor
@@ -43,13 +45,13 @@ void Lexer::txtToVec(string str) {
 }
 
 void Lexer::splitToExpression(string line) {
-    string expression;
+    string expression = "";
     int splitter = 0;
 
     while(splitter != -1){
         splitter = line.find(' ');
         expression = line.substr(0, splitter);
-        if(expression == ""){
+        if(expression.empty()){
             line = line.substr(splitter + 1, line.length());
             continue;
         }
