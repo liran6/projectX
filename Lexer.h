@@ -19,22 +19,19 @@ class Lexer {
 
 
 public:
-    string fileName;
-    string line;
-    vector<string>* vecOfCommands;
 
-    Lexer(string fileName);
+    vector<string> vecOfCommands;
 
-    vector<string> *txtToVec(string str);
+    vector<string> lexer(string fileName);
+
+    void txtToVec(string str);
 
     void splitToExpression(string line);
 
 
-    vector<string> *lexerToVector(string fileName);
+    void lexerToVector(string fileName);
 
-    vector<string> *getVecOfCommands() const {
-        return this->vecOfCommands;
-    }
+
 };
 
 
