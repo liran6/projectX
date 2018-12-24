@@ -9,12 +9,13 @@ using namespace std;
 int main() {
     /*cout<< "insert input bitch"<< endl;*/
     string str = "testForLexer.txt";
-    Lexer lexer(str);
+    cout << str[str.length()-1] << endl;
+    Lexer* lex = new Lexer(str);
     string strFromCommandLine = "hello world and be happy";
     Lexer lexerFromCommand(strFromCommandLine);
-    cout << lexer.vecOfCommands << endl;
+    cout << lex->vecOfCommands->at(0) << endl;
     cout << "london goodbye" << endl;
-    cout << lexerFromCommand.vecOfCommands << endl;
+    cout << lexerFromCommand.vecOfCommands->at(0) << endl;
 
 /*    for (vector<char*>::const_iterator iter = lexer.getVecOfCommands();
          iter != getVecOfCommands().end(); ++iter) {
