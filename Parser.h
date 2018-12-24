@@ -15,22 +15,7 @@
 using namespace std;
 
 class Parser {
-
-
-Lexer* lexer();
-Command command;
-
-map<string, command> commandMap;
-vector<string> *vecOfComments;
-public:
-void parseToCommand() {
-    for (vector<string>::iterator it = vecOfComments->begin(); it != vecOfComments->end(); it++) {
-        cout << *it << endl;
-        commandMap.insert(*it, command);
-
-    }
-}
-
+    Lexer* lexer;
 
 
 };

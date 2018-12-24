@@ -12,9 +12,9 @@ int main() {
     Lexer lexer(str);
     string strFromCommandLine = "hello world and be happy";
     Lexer lexerFromCommand(strFromCommandLine);
-    cout << lexer.vecOfCommands->at(0) << endl;
+    cout << lexer.vecOfCommands << endl;
     cout << "london goodbye" << endl;
-    cout << lexerFromCommand.vecOfCommands->at(0) << endl;
+    cout << lexerFromCommand.vecOfCommands << endl;
 
 /*    for (vector<char*>::const_iterator iter = lexer.getVecOfCommands();
          iter != getVecOfCommands().end(); ++iter) {

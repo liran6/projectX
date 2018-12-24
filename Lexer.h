@@ -24,7 +24,7 @@ public:
 
     Lexer(string fileName) {//constructor
         this->fileName = fileName;
-        if(fileName[fileName.length()] == 't' && (fileName[fileName.length()-1]) == 'x' &&
+        if((fileName[fileName.length()] == 't') && ((fileName[fileName.length()-1]) == 'x') &&
            fileName[fileName.length()-3] == '.'){
             this->vecOfCommands = txtToVec(fileName);
         }
