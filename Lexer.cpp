@@ -3,12 +3,22 @@
 //
 
 #include <regex>
+#include <string>
+#include <iostream>
+#include <fstream>
 #include "Lexer.h"
+#include <map>
+#include "stdio.h"
+#include "Command.h"
+#include <vector>
 #define LINE_SEPARATOR "@"
+
 using namespace std;
+
 
 vector<string> Lexer::lexer(string fileName) {
     //constructor
+    vector<string> vecOfCommands;
     if (fileName[fileName.length() - 1] == 't' && (fileName[fileName.length() - 2]) == 'x' &&
         fileName[fileName.length() - 4] == '.') {
         txtToVec(fileName);
