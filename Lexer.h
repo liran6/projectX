@@ -12,49 +12,73 @@
 #include "stdio.h"
 #include "Command.h"
 #include <vector>
+#define LINE_SEPARATOR "@"
 
 using namespace std;
 class Lexer {
 
-public:
 
+public:
     string fileName;
     string line;
-    vector<string> *vecOfCommands = new vector<string>;
+    vector<string>* vecOfCommands;
 
-    Lexer(string fileName) {//constructor
+    Lexer(string fileName) {
+        //constructor
         this->fileName = fileName;
-        if(fileName[fileName.length()] == 't' && (fileName[fileName.length()-1]) == 'x' &&
-           fileName[fileName.length()-3] == '.'){
+        if (fileName[fileName.length() - 1] == 't' && (fileName[fileName.length() - 2]) == 'x' &&
+            fileName[fileName.length() - 4] == '.') {
             this->vecOfCommands = txtToVec(fileName);
-        }
-        else {
+        } else {
             this->vecOfCommands = lexerToVector(fileName);
         }
     }
 
     vector<string> *txtToVec(string str){
-        ifstream fileX;
-        fileX.open (str, ifstream::in);
         string temp = "";
+        ifstream fileX(str);
+//        vector<string> vec;
+        //fileX.open (str, ifstream::in);
         if(!fileX.is_open()){
             cout << "Can't open the file: " << str << endl;
         }
         else{
             while (getline(fileX, line)){
-                for (int i = 0; i< line.length(); i++){
-                    if(line[i] != ' ' || line[i] != '\n') {// adding all the whitespace
-                        temp += line[i];
-                    }
-                    else{
-                        this->vecOfCommands->push_back(temp);
-                        temp = "";
-                    }
-                }
+//                for (int i = 0; i< line.length(); i++){
+//                    if(line[i] != ' ') {// adding all the whitespace
+//                        temp += line[i];
+//                    }
+//                    else{
+//                        this->vecOfCommands.push_back(temp);
+//                        temp = "";
+//                    }
+//                }
+                splitToExpression(line);
             }
         }
         return this->vecOfCommands;
     }
+
+    void splitToExpression(string line){
+        string expression;
+        int splitter;
+
+        while(splitter != -1){
+            splitter = line.find(' ');
+            expression = line.substr(0, splitter);
+            if(expression == ""){
+                line = line.substr(splitter + 1, line.length());
+                continue;
+            }
+            line = line.substr(splitter + 1, line.length());
+            this->vecOfCommands->push_back(expression);
+        }
+        this->vecOfCommands->push_back(LINE_SEPARATOR);
+
+
+
+    }
+
 
     vector<string> *lexerToVector(string fileName){
 

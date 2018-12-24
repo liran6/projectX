@@ -9,10 +9,11 @@ using namespace std;
 int main() {
     /*cout<< "insert input bitch"<< endl;*/
     string str = "testForLexer.txt";
-    Lexer lexer(str);
+    cout << str[str.length()-1] << endl;
+    Lexer* lex = new Lexer(str);
     string strFromCommandLine = "hello world and be happy";
     Lexer lexerFromCommand(strFromCommandLine);
-    cout << lexer.vecOfCommands->at(0) << endl;
+    cout << lex->vecOfCommands->at(0) << endl;
     cout << "london goodbye" << endl;
     cout << lexerFromCommand.vecOfCommands->at(0) << endl;
 
