@@ -24,9 +24,9 @@ Parser::Parser(vector<string> vecOfCommand) {
         } else if (vecOfCommand[i] == LINE_SEPARATOR) {
             commands.push_back(vecOfCommand[i]);
         } else if (isdigit(vecOfCommand[i].at(0)) || checkInVec(oper, vecOfCommand[i].at(0))) {
-            string str = vecOfCommand[i];
-            i++;
-            while (!(isdigit(vecOfCommand[i].at(0))) && (vecOfCommand[i] != "," && vecOfCommand[i] != LINE_SEPARATOR)) {
+           string str ;//= vecOfCommand[i];
+//            i++;
+            while (!(isdigit(vecOfCommand[i].at(vecOfCommand[i].size()-1)) && isdigit(vecOfCommand[i+1].at(0))) && (vecOfCommand[i] != "," && vecOfCommand[i] != LINE_SEPARATOR)) {
                 str += vecOfCommand[i];
                 i++;
             }
