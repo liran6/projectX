@@ -3,6 +3,6 @@
 //
 #include "Command.h"
 
-int OpenDataServerCommand :: execute( int i){
+int OpenServerCommand :: execute( int i){
 
 }

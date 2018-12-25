@@ -3,7 +3,7 @@
 //
 
 #include "Parser.h"
-#include "OpenServerCommand.h"
+
 #include "DefineVarCommand.h"
 #include "PrintCommand.h"
 #include "ConditionParser.h"
@@ -15,6 +15,7 @@
 using namespace std;
 
 Parser::Parser(vector<string> vecOfCommand) {
+    Command* create = new Ope
     commands = vecOfCommand;
     index = 0;
     stringCommandMap.insert(pair<string, Command*>("openDataServer",new OpenServerCommand));
