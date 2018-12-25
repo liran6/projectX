@@ -5,13 +5,11 @@
 #ifndef PROJECTX_COMMAND_H
 #define PROJECTX_COMMAND_H
 
-#include "Expression.h"
-
 //
 class Command
 {
 public:
-    virtual double execute( int i) = 0;
+    virtual int execute( int i) = 0;
 
 };
 
