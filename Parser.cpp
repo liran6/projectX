@@ -26,7 +26,11 @@ Parser::Parser(vector<string> vecOfCommand) {
         } else if (isdigit(vecOfCommand[i].at(0)) || checkInVec(oper, vecOfCommand[i].at(0))) {
            string str ;//= vecOfCommand[i];
 //            i++;
-            while (!(isdigit(vecOfCommand[i].at(vecOfCommand[i].size()-1)) && isdigit(vecOfCommand[i+1].at(0))) && (vecOfCommand[i] != "," && vecOfCommand[i] != LINE_SEPARATOR)) {
+            if(isdigit(vecOfCommand[i].at(vecOfCommand[i].size()-1)) && isdigit(vecOfCommand[i+1].at(0))){
+                str = vecOfCommand[i];
+                commands.push_back(str);
+                continue;
+            }else while (!(isdigit(vecOfCommand[i].at(vecOfCommand[i].size()-1)) && isdigit(vecOfCommand[i+1].at(0))) && (vecOfCommand[i] != "," && vecOfCommand[i] != LINE_SEPARATOR)) {
                 str += vecOfCommand[i];
                 i++;
             }
@@ -36,7 +40,14 @@ Parser::Parser(vector<string> vecOfCommand) {
             commands.push_back(vecOfCommand[i]);
         }
     }
+    index = 0;
+    this->stringCommandMap.insert(pair<string, Command*>("openDataServer",new OpenServerCommand));
+    this->stringCommandMap.insert(pair<string, Command*>("connect",new ConnectCommand));
+    this->stringCommandMap.insert(pair<string, Command*>("var", new DefineVarCommand));
+    this->stringCommandMap.insert(pair<string, Command*>("print", new PrintCommand));
+    this->stringCommandMap.insert(pair<string, Command*>("sleep", new SleepCommand));
 }
+
 bool Parser:: checkInVec(vector<char> vec, char& c ){
     bool x = false;
     for (char i : vec) {
@@ -45,19 +56,8 @@ bool Parser:: checkInVec(vector<char> vec, char& c ){
         }
     }
     return x;
-//    bool x = find((vec.begin(), vec.end(), c) != vec.end());
-//    return x;
-}
-/*
 
-    index = 0;
-    stringCommandMap.insert(pair<string, Command*>("openDataServer",new OpenServerCommand));
-    //this->stringCommandMap.insert(pair<string, Command*>("connect",new ConnectCommand));
-    stringCommandMap.insert(pair<string, Command*>("var", new DefineVarCommand));
-    stringCommandMap.insert(pair<string, Command*>("print", new PrintCommand));
-    stringCommandMap.insert(pair<string, Command*>("sleep", new SleepCommand));
 }
-
 
 void Parser::callCondition() {
     int bracketCounter = 0;
@@ -128,4 +128,3 @@ int Parser::getReturnIndex(vector<string> commandOperation, int index) {
     return resIndex;
 }
 
-*/
