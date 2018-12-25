@@ -11,8 +11,7 @@
 class Command
 {
 public:
-    virtual double execute( int i) = 0;
-
+    virtual double execute(int i) = 0;
 };
 
 
