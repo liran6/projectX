@@ -35,5 +35,12 @@ public:
     virtual int execute(vector<string> vec, int i);
     virtual ~OpenServerCommand(){};
 };
+class ConnectCommand : public Command
+{
+public:
+    ConnectCommand() : Command(){}
+    virtual double execute();
+    virtual ~ConnectCommand(){};
+};
 
 #endif //PROJECTX_COMMAND_H
