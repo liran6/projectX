@@ -48,6 +48,10 @@ void Lexer::txtToVec(string str) {
 //                        temp = "";
 //                    }
 //                }
+            if(line.find(',') != -1){
+                line.insert(line.find(','), 1, ' ');
+                line.insert(line.find(',') + 1 , 1, ' ');
+            }
             splitToExpression(line);
         }
     }

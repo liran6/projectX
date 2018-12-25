@@ -3,6 +3,7 @@
 #include "Expression.h"
 #include "ShuntingYard.h"
 #include "Lexer.h"
+#include "Parser.h"
 
 using namespace std;
 
@@ -12,6 +13,7 @@ int main() {
     cout << str[str.length()-1] << endl;
     Lexer* lex = new Lexer();
     lex->lexer(str);
+    Parser *pars = new Parser(lex->vecOfCommands);
     string strFromCommandLine = "hello world and be happy";
     cout << lex->vecOfCommands.at(0) << endl;
     cout << "london goodbye" << endl;

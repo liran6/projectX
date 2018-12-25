@@ -9,13 +9,15 @@
 #include <map>
 #include <vector>
 #include "Command.h"
-#include "MapHolder.h"
+#include <algorithm>
+#include <list>
+//#include "MapHolder.h"
 
 using namespace std;
 
 class Parser {
     map<string, Command*> stringCommandMap;
-    MapHolder* mapHolder = MapHolder::getInstance();
+    //MapHolder* mapHolder = MapHolder::getInstance();
     vector<string> commands;
     int index;
 public:
@@ -24,6 +26,7 @@ public:
     void parse();
     void callCondition();
     static int getReturnIndex(vector<string> commandOperation, int index);
+    bool checkInVec(vector<char> vec, char & c );
 };
 
 
