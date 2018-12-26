@@ -2,11 +2,22 @@
 // Created by liran-baruch on 12/24/18.
 //
 
-
+#include <utility>
+#include <iostream>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <unistd.h>
 #include "Command.h"
+#include "ShuntingYard.h"
 using namespace std;
 
 int OpenServerCommand :: execute(vector<string> vec, int i){
+    ShuntingYard shuntingYard;
+    int port = shuntingYard.expressionEvaluate(vec.at(i + 1))->calculate();
+    int hz = shuntingYard.expressionEvaluate(vec.at(i + 2))->calculate();
+    SoketConnector(port, hz);
+
+
     return 0;
 }
 
