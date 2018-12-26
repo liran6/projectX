@@ -23,8 +23,10 @@ class Expression;
 class Command;
 class AssignCommand;
 class OpenServerCommand;
-class CreateVarCommand;
+class VarCommand;
 class BindCommand;
+class ConnectCommand;
+class SleepCommand;
 
 
 class Command
@@ -42,12 +44,62 @@ public:
     virtual ~OpenServerCommand(){};
     void SoketConnector(int port, int hz);
 };
+
 class ConnectCommand : public Command
 {
 public:
     ConnectCommand() : Command(){}
-    virtual double execute();
+    virtual int execute(vector<string> vec, int i);
     virtual ~ConnectCommand(){};
+};
+
+//WhileCommand class
+class WhileCommand : public Command
+{
+public:
+    WhileCommand() : Command(){}
+    virtual int execute(vector<string> vec, int i);
+    virtual ~WhileCommand(){};
+};
+
+class SleepCommand : public Command
+{
+public:
+    SleepCommand() : Command(){}
+    virtual int execute(vector<string> vec, int i);
+    virtual ~SleepCommand(){};
+};
+
+class IfCommand : public Command
+{
+public:
+    IfCommand() : Command(){}
+    virtual int execute(vector<string> vec, int i);
+    virtual ~IfCommand();
+};
+
+class AssignCommand : public Command
+{
+public:
+    AssignCommand() : Command(){}
+    virtual int execute(vector<string> vec, int i);
+    virtual ~AssignCommand(){};
+};
+
+class VarCommand : public Command
+{
+public:
+    VarCommand() : Command(){}
+    virtual int execute(vector<string> vec, int i);
+    virtual ~VarCommand(){};
+};
+
+class BindCommand : public Command
+{
+public:
+    BindCommand() : Command(){}
+    virtual int execute(vector<string> vec, int i);
+    virtual ~BindCommand(){};
 };
 
 #endif //PROJECTX_COMMAND_H

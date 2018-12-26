@@ -12,6 +12,8 @@ using namespace std;
 
 
 Parser::Parser(vector<string> vecOfCommand) {
+    //index = 0;
+
     vector<char> oper;
     oper.push_back('+');
     oper.push_back('-');
@@ -40,12 +42,12 @@ Parser::Parser(vector<string> vecOfCommand) {
             commands.push_back(vecOfCommand[i]);
         }
     }
-    index = 0;
+
     this->stringCommandMap.insert(pair<string, Command*>("openDataServer",new OpenServerCommand));
     this->stringCommandMap.insert(pair<string, Command*>("connect",new ConnectCommand));
-    this->stringCommandMap.insert(pair<string, Command*>("var", new DefineVarCommand));
-    this->stringCommandMap.insert(pair<string, Command*>("print", new PrintCommand));
-    this->stringCommandMap.insert(pair<string, Command*>("sleep", new SleepCommand));
+//    this->stringCommandMap.insert(pair<string, Command*>("var", new VarCommand));
+//    this->stringCommandMap.insert(pair<string, Command*>("print", new PrintCommand));
+//    this->stringCommandMap.insert(pair<string, Command*>("sleep", new SleepCommand));
 }
 
 bool Parser:: checkInVec(vector<char> vec, char& c ){
@@ -80,12 +82,12 @@ void Parser::callCondition() {
 
     this->index = i + 2;
     if (allConCom[0] == "while") {
-        LoopCommand* loopCommand = new LoopCommand;
-        loopCommand->doCommand(allConCom, index);
+        WhileCommand* loopCommand = new WhileCommand;
+        loopCommand->execute(allConCom, index);
         delete loopCommand;
     } else if (allConCom[0] == "if") {
         IfCommand* ifCommand = new IfCommand;
-        ifCommand->doCommand(allConCom, index);
+        ifCommand->execute(allConCom, index);
         delete ifCommand;
     }
     //ConditionParser* conParser = new ConditionParser(allConCom);
@@ -107,8 +109,8 @@ void Parser::parse() {
             index += c->execute(commands, index);
             //   delete (c); - not good!
         } else if (mapHolder->getSymbolTable().count(commands[index])) {
-            c = new DefinitionCommand; // symbol without var //
-            index += c->doCommand(commands, index);
+            c = new AssignCommand; // symbol without var //
+            index += c->execute(commands, index);
             delete (c);
         } else if (commands.at(index) == "if" || commands.at(index) == "while") {
             callCondition();

@@ -56,6 +56,14 @@ void Lexer::txtToVec(string str) {
                 line.insert(line.find('='), 1, ' ');
                 line.insert(line.find('=') + 1 , 1, ' ');
             }
+            if(line.find('{') != -1){
+                line.insert(line.find('{'), 1, ' ');
+                line.insert(line.find('{') + 1 , 1, ' ');
+            }
+            if(line.find('}') != -1){
+                line.insert(line.find('}'), 1, ' ');
+                line.insert(line.find('}') + 1 , 1, ' ');
+            }
 
             splitToExpression(line);
         }
