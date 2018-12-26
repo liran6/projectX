@@ -1,5 +1,5 @@
 //
-// Created by shani on 16/12/18.
+// Created by yuval on 16/12/18.
 //
 
 #include "Parser.h"
@@ -19,7 +19,6 @@ Parser::Parser(vector<string> vecOfCommand) {
     oper.push_back('-');
     oper.push_back('*');
     oper.push_back('/');
-    //commands = vecOfCommand;
     for (int i = 0; i < vecOfCommand.size(); i++) {
         if (vecOfCommand[i] == ",") {
             continue;
@@ -108,7 +107,7 @@ void Parser::parse() {
         if (c != NULL) {
             index += c->execute(commands, index);
             //   delete (c); - not good!
-        } else if (mapHolder->getSymbolTable().count(commands[index])) {
+        } else if (dataMaps->getSymbolTable().count(commands[index])) {
             c = new AssignCommand; // symbol without var //
             index += c->execute(commands, index);
             delete (c);

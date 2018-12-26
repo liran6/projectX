@@ -5,6 +5,6 @@
 
 #include "Command.h"
 
-int VarCommand::execute(vector<string> vec, int i) {
+int IfCommand::execute(vector<string> vec, int i) {
     return 0;
 }

@@ -1,5 +1,5 @@
 //
-// Created by oryakov on 12/16/18.
+// Created by yuval on 12/16/18.
 //
 
 #ifndef MILESTONE1_PARSER_H
@@ -9,15 +9,15 @@
 #include <map>
 #include <vector>
 #include "Command.h"
+#include "DataMaps.h"
 #include <algorithm>
 #include <list>
-//#include "MapHolder.h"
 
 using namespace std;
 
 class Parser {
     map<string, Command*> stringCommandMap;
-    //MapHolder* mapHolder = MapHolder::getInstance();
+    DataMaps* dataMaps = DataMaps::getInstance();
     vector<string> commands;
     int index;
 public:

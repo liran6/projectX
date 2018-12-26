@@ -14,6 +14,7 @@ int main() {
     Lexer* lex = new Lexer();
     lex->lexer(str);
     Parser *pars = new Parser(lex->vecOfCommands);
+    pars->parse();
     string strFromCommandLine = "hello world and be happy";
     cout << lex->vecOfCommands.at(0) << endl;
     cout << "london goodbye" << endl;

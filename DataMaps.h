@@ -17,11 +17,12 @@ class DataMaps{
     static DataMaps* instance;
     map<string, string> varToPath;
     map<string, double> pathToVal;
-    map<string, double> symboleTable;
+    map<string, double> symbolTable;
     mutex mylock;
     DataMaps(){};
 
 public:
+
     static DataMaps* getInstance();
 
     const map<string, string> &getVarToPath() const;
@@ -32,9 +33,20 @@ public:
 
     void setPathToVal(const map<string, double> &pathToVal);
 
-    const map<string, double> &getSymboleTable() const;
+    const map<string, double> &getSymbolTable() const;
 
-    void setSymboleTable(const map<string, double> &symboleTable);
+    void setSymbolTable(const map<string, double> &symboleTable);
+
+    void setVarToPathValue(string &key, string path);
+
+    string getVarToPathValue(string key);
+
+    void setSymbolTableValue(string &key, double value);
+    // The server sets all the time.
+    void setSymbolTableValue(string &key, double value,string server);
+
+    double getSymbolTableValue(string key);
+
 
 
 };

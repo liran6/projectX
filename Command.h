@@ -17,7 +17,7 @@
 using namespace std;
 
 struct threadsAndLock;
-
+class IfCommand;
 class ConditionParser;
 class Expression;
 class Command;
@@ -75,7 +75,7 @@ class IfCommand : public Command
 public:
     IfCommand() : Command(){}
     virtual int execute(vector<string> vec, int i);
-    virtual ~IfCommand();
+    virtual ~IfCommand(){};
 };
 
 class AssignCommand : public Command
