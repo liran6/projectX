@@ -7,6 +7,12 @@
 
 #include <string>
 #include <vector>
+#include <stdio.h>
+#include <stdlib.h>
+#include <netdb.h>
+#include <unistd.h>
+#include <netinet/in.h>
+#include <strings.h>
 
 using namespace std;
 
@@ -34,6 +40,7 @@ class OpenServerCommand : public Command
 public:
     virtual int execute(vector<string> vec, int i);
     virtual ~OpenServerCommand(){};
+    void SoketConnector(int port, int hz);
 };
 class ConnectCommand : public Command
 {
