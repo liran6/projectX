@@ -18,7 +18,7 @@ int OpenServerCommand :: execute(vector<string> vec, int i){
     SoketConnector(port, hz);
 
 
-    return 0;
+    return i+3;
 }
 
 void OpenServerCommand :: SoketConnector(int port, int hz){
