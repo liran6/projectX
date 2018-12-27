@@ -42,7 +42,7 @@ class OpenServerCommand : public Command
 public:
     virtual int execute(vector<string> vec, int i);
     virtual ~OpenServerCommand(){};
-    void SoketCreator(int port, int hz);
+    void SocketCreator(int port, int hz);
 };
 
 class ConnectCommand : public Command
