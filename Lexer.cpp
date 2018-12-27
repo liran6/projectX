@@ -52,6 +52,22 @@ void Lexer::txtToVec(string str) {
                 line.insert(line.find(','), 1, ' ');
                 line.insert(line.find(',') + 1 , 1, ' ');
             }
+            if(line.find('-') != -1){
+                line.insert(line.find('-'), 1, ' ');
+                line.insert(line.find('-') + 1 , 1, ' ');
+            }
+            if(line.find('*') != -1){
+                line.insert(line.find('*'), 1, ' ');
+                line.insert(line.find('*') + 1 , 1, ' ');
+            }
+            if(line.find('/') != -1){
+                line.insert(line.find('/'), 1, ' ');
+                line.insert(line.find('/') + 1 , 1, ' ');
+            }
+            if(line.find('+') != -1){
+                line.insert(line.find('+'), 1, ' ');
+                line.insert(line.find('+') + 1 , 1, ' ');
+            }
             if(line.find('=') != -1){
                 line.insert(line.find('='), 1, ' ');
                 line.insert(line.find('=') + 1 , 1, ' ');
@@ -63,6 +79,14 @@ void Lexer::txtToVec(string str) {
             if(line.find('}') != -1){
                 line.insert(line.find('}'), 1, ' ');
                 line.insert(line.find('}') + 1 , 1, ' ');
+            }
+            if(line.find('\"') != -1){
+                line.insert(line.find('\"'), 1, ' ');
+                line.insert(line.find('\"') + 1 , 1, ' ');
+            }
+            if(line.find("bind") != -1){
+                line.insert(line.find("bind"), 1, ' ');
+                line.insert(line.find("bind") + 4 , 1, ' ');
             }
 
             splitToExpression(line);
