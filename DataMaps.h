@@ -35,7 +35,7 @@ public:
 
     const map<string, double> &getSymbolTable() const;
 
-    void setSymbolTable(const map<string, double> &symboleTable);
+    void setSymbolTable(const map<string, double> &symbolTable);
 
     void setVarToPathValue(string &key, string path);
 
@@ -43,7 +43,7 @@ public:
 
     void setSymbolTableValue(string &key, double value);
     // The server sets all the time.
-    void setSymbolTableValue(string &key, double value,string server);
+    //void setSymbolTableValue(string &key, double value,string server);
 
     double getSymbolTableValue(string key);
 

@@ -15,14 +15,25 @@ DataMaps *DataMaps::getInstance() {
 
 }
 
+void DataMaps::setSymbolTableValue(string &key, double value) {
+    myLock.lock();
+    // Changed values.
+    if(pathToVal.count(key))
+    {
+        pathToVal[key] = value;
+        this->symbolTable[key] = value;
+    }
+    myLock.unlock();
+}
+
 void DataMaps::setVarToPathValue(string &key, string path) {
     myLock.lock();
     varToPath[key] = path;
     myLock.unlock();
 }
 
-void DataMaps::setSymbolTable(const map<string, double> &symboleTable) {
-    DataMaps::symbolTable = symboleTable;
+void DataMaps::setSymbolTable(const map<string, double> &symbolTable) {
+    DataMaps::symbolTable = symbolTable;
 }
 
 void DataMaps::setVarToPath(const map<string, string> &varToPath) {
@@ -48,24 +59,13 @@ const map<string, string> &DataMaps::getVarToPath() const {
 string DataMaps::getVarToPathValue(string key) {
     return varToPath[key];
 }
-
-void DataMaps::setSymbolTableValue(string &key, double value) {
-    myLock.lock();
-    // Changed values.
-    if(pathToVal.count(key))
-    {
-        pathToVal[key] = value;
-        this->symbolTable[key] = value;
-    }
-    myLock.unlock();
-}
-
-void DataMaps::setSymbolTableValue(string &key, double value, string server) {
-    myLock.lock();
-    if(pathToVal.count(key))
-        this->symbolTable[key] = value;
-    myLock.unlock();
-}
+//
+//void DataMaps::setSymbolTableValue(string &key, double value, string server) {
+//    myLock.lock();
+//    if(pathToVal.count(key))
+//        this->symbolTable[key] = value;
+//    myLock.unlock();
+//}
 
 double DataMaps::getSymbolTableValue(string key) {
     double result = symbolTable[key];

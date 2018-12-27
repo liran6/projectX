@@ -4,6 +4,7 @@
 
 #include "Parser.h"
 
+
 #define LINE_SEPARATOR "@"
 
 using namespace std;
@@ -12,8 +13,7 @@ using namespace std;
 
 
 Parser::Parser(vector<string> vecOfCommand) {
-    //index = 0;
-
+    index = 0;
     vector<char> oper;
     oper.push_back('+');
     oper.push_back('-');
@@ -37,6 +37,14 @@ Parser::Parser(vector<string> vecOfCommand) {
             }
             i--;
             commands.push_back(str);
+        }else if(vecOfCommand[i] == "\""){
+            i++;
+            while (vecOfCommand[i] != "\""){
+                string str;
+                str+= vecOfCommand[i];
+                i++;
+            }
+
         } else{
             commands.push_back(vecOfCommand[i]);
         }
