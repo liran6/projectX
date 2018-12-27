@@ -16,7 +16,7 @@ int OpenServerCommand :: execute(vector<string> vec, int i){
     ShuntingYard shuntingYard;
     int port = shuntingYard.expressionEvaluate(vec.at(i + 1))->calculate();
     int hz = shuntingYard.expressionEvaluate(vec.at(i + 2))->calculate();
-    thread serverThread(SoketCreator(), port, hz);
+    thread serverThread(SoketCreator(),port, hz);
 
 
     return 0;
