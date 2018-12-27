@@ -14,11 +14,13 @@
 class ThrdCreator {
 
     int trd;
+    pthread_t pthreadT;
 
 
 public:
     ThrdCreator(void* funcToEx, int argToPort, int argToHz) {
         pthread_t main_and_only_thread;
+
     }
 
 private:
@@ -26,6 +28,7 @@ private:
                        nullptr_t ,
                        void * (openDataEX)(void *),
                        void *arg);
+
 
     void closeTheThread() {
         pthread_exit;
