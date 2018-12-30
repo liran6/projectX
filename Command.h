@@ -24,7 +24,7 @@ class Command;
 class AssignCommand;
 class OpenServerCommand;
 class VarCommand;
-class BindCommand;
+class PrintCommand;
 class ConnectCommand;
 class SleepCommand;
 
@@ -117,12 +117,20 @@ public:
     virtual ~VarCommand(){};
 };
 
-class BindCommand : public Command
+class PrintCommand : public Command
 {
 public:
-    BindCommand() : Command(){}
+    PrintCommand() : Command(){}
     virtual int execute(vector<string> vec, int i);
-    virtual ~BindCommand(){};
+    virtual ~PrintCommand(){};
+};
+class ConditionParser : public Command
+{
+public:
+    ConditionParser(): Command(){}
+    virtual bool checkCondition(vector<string> vec);
+    virtual int execute(vector<string> vec, int i){ return 0;}
+    virtual ~ConditionParser(){};
 };
 
 #endif //PROJECTX_COMMAND_H
