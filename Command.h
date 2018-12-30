@@ -69,7 +69,7 @@ public:
     }argsForConnect;*/
    /* ConnectCommand() : Command(){}*/
 
-    ConnectCommand();
+    /*ConnectCommand();*/
 
     virtual int execute(vector<string> vec, int i);
     virtual void* OpenConnection(void* arguments);
