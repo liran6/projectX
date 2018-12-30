@@ -24,7 +24,7 @@ Parser::Parser(vector<string> vecOfCommand) {
             continue;
         } else if (vecOfCommand[i] == LINE_SEPARATOR) {
             commands.push_back(vecOfCommand[i]);
-        }else if(vecOfCommand[i] == "<" || vecOfCommand[i] == ">" ){
+        }else if(vecOfCommand[i] == "<" || vecOfCommand[i] == ">" || vecOfCommand[i] == "!" || vecOfCommand[i] == "="){
             string str = vecOfCommand[i];
             if(vecOfCommand[i+1] == "="){
                 str += vecOfCommand[i+1];
@@ -43,7 +43,7 @@ Parser::Parser(vector<string> vecOfCommand) {
                 if(vecOfCommand[i] == "," || vecOfCommand[i] == LINE_SEPARATOR || vecOfCommand[i] == "{" || vecOfCommand[i] == "}"){
                     break;
                 }
-                if(checkInVec(oper, vecOfCommand[i].at(0)) && !(isdigit(vecOfCommand[i+1].at(0)))){
+                if(checkInVec(oper, vecOfCommand[i].at(0)) && (isalpha(vecOfCommand[i+1].at(0)))){
                     str = vecOfCommand[i];
                     i++;
                     break;
@@ -71,8 +71,8 @@ Parser::Parser(vector<string> vecOfCommand) {
     this->stringCommandMap.insert(pair<string, Command*>("openDataServer",new OpenServerCommand));
     this->stringCommandMap.insert(pair<string, Command*>("connect",new ConnectCommand));
     this->stringCommandMap.insert(pair<string, Command*>("var", new VarCommand));
-//    this->stringCommandMap.insert(pair<string, Command*>("print", new PrintCommand));
-//    this->stringCommandMap.insert(pair<string, Command*>("sleep", new SleepCommand));
+    this->stringCommandMap.insert(pair<string, Command*>("print", new PrintCommand));
+    this->stringCommandMap.insert(pair<string, Command*>("sleep", new SleepCommand));
 }
 
 bool Parser:: checkInVec(vector<char> vec, char& c ){

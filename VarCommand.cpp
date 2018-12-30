@@ -34,5 +34,8 @@ int VarCommand::execute(vector<string> vec, int i) {
 //            dataMaps->setSymbolTableValue(var, val);
             return c->execute(vec, i+1);
         }
+    } else{
+        dataMaps->addSymbolTableValues(var, 0);
+        return i+2;
     }
 }

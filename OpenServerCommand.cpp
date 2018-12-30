@@ -23,7 +23,7 @@ int OpenServerCommand :: execute(vector<string> vec, int i){
     this->argsForServer.arg1 = port;
     this->argsForServer.arg2 = hz;
 //    double argf[2] = {port, hz};
-    int iny = pthread_create(&pthrd, nullptr ,SocketCreator,  );
+//    int iny = pthread_create(&pthrd, nullptr ,SocketCreator,  );
 
 
 
