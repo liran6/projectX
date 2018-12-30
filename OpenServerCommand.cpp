@@ -8,15 +8,24 @@
 #include <netinet/in.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <complex>
 #include "Command.h"
 #include "ShuntingYard.h"
 
 using namespace std;
 
 int OpenServerCommand :: execute(vector<string> vec, int i){
+
     ShuntingYard shuntingYard;
+    pthread_t pthrd;
     int port = shuntingYard.expressionEvaluate(vec.at(i + 1))->calculate();
     int hz = shuntingYard.expressionEvaluate(vec.at(i + 2))->calculate();
+    this->argsForServer.arg1 = port;
+    this->argsForServer.arg2 = hz;
+//    double argf[2] = {port, hz};
+    int iny = pthread_create(&pthrd, nullptr ,SocketCreator,  );
+
+
 
 
 
@@ -35,7 +44,7 @@ int OpenServerCommand :: execute(vector<string> vec, int i){
     return i+3;
 }
 
-void OpenServerCommand :: SocketCreator(int port, int hz){
+void* OpenServerCommand :: SocketCreator(arg_struct argStruct){
     int sockfd, newsockfd, portno, clilen;
     char buffer[256];
     struct sockaddr_in serv_addr, cli_addr;
@@ -51,7 +60,7 @@ void OpenServerCommand :: SocketCreator(int port, int hz){
 
     /* Initialize socket structure */
     bzero((char *) &serv_addr, sizeof(serv_addr));
-    portno = port;
+    portno = argStruct.arg1;
 
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = INADDR_ANY;
@@ -80,6 +89,7 @@ void OpenServerCommand :: SocketCreator(int port, int hz){
 
     /* If connection is established then start communicating */
     while (true) {
+
         bzero(buffer, 256);
         n = read(newsockfd, buffer, 255);
 
@@ -97,7 +107,7 @@ void OpenServerCommand :: SocketCreator(int port, int hz){
             perror("ERROR writing to socket");
             exit(1);
         }
-        sleep(1/hz); // optional line.
+        sleep(1/argStruct.arg2); // optional line.
     }
 
 }
