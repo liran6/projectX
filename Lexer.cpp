@@ -11,6 +11,10 @@
 #include "stdio.h"
 #include "Command.h"
 #include <vector>
+#include <list>
+#include <algorithm>
+
+
 #define LINE_SEPARATOR "@"
 
 using namespace std;
@@ -38,6 +42,8 @@ void Lexer::txtToVec(string str) {
         cout << "Can't open the file: " << str << endl;
     }
     else{
+        vector <string> args = { ",", "*", "/", "+", "=", "-", "\"", "{", "}", "<", ">", "(", ")"};
+        vector<string>::iterator iter;
         while (getline(file, line)){
 //                for (int i = 0; i< line.length(); i++){
 //                    if(line[i] != ' ') {// adding all the whitespace
@@ -48,46 +54,69 @@ void Lexer::txtToVec(string str) {
 //                        temp = "";
 //                    }
 //                }
-            if(line.find(',') != -1){
-                line.insert(line.find(','), 1, ' ');
-                line.insert(line.find(',') + 1 , 1, ' ');
+            for (iter = args.begin();iter < args.end(); iter++) {
+//                if(line.find(*iter) != -1) {
+//                    line.insert(line.find(*iter), 1, ' ');
+//                    line.insert(line.find(*iter) + 1, 1, ' ');
+//                }
+//                string x = boost::replaceAll()
+                string s = line ;
+                string y;
+                string delimiter = *iter;
+
+                size_t pos = 0;
+                string token;
+                while ((pos = s.find(delimiter)) != string::npos) {
+                    token = s.substr(0, pos);
+                    y += token + ' '+*iter+' ';
+                    s.erase(0, pos + delimiter.length());
+                }
+                y += s;
+                line = y;
             }
-            if(line.find('-') != -1){
-                line.insert(line.find('-'), 1, ' ');
-                line.insert(line.find('-') + 1 , 1, ' ');
-            }
-            if(line.find('*') != -1){
-                line.insert(line.find('*'), 1, ' ');
-                line.insert(line.find('*') + 1 , 1, ' ');
-            }
-            if(line.find('/') != -1){
-                line.insert(line.find('/'), 1, ' ');
-                line.insert(line.find('/') + 1 , 1, ' ');
-            }
-            if(line.find('+') != -1){
-                line.insert(line.find('+'), 1, ' ');
-                line.insert(line.find('+') + 1 , 1, ' ');
-            }
-            if(line.find('=') != -1){
-                line.insert(line.find('='), 1, ' ');
-                line.insert(line.find('=') + 1 , 1, ' ');
-            }
-            if(line.find('{') != -1){
-                line.insert(line.find('{'), 1, ' ');
-                line.insert(line.find('{') + 1 , 1, ' ');
-            }
-            if(line.find('}') != -1){
-                line.insert(line.find('}'), 1, ' ');
-                line.insert(line.find('}') + 1 , 1, ' ');
-            }
-            if(line.find('\"') != -1){
-                line.insert(line.find('\"'), 1, ' ');
-                line.insert(line.find('\"') + 1 , 1, ' ');
-            }
-            if(line.find("bind") != -1){
-                line.insert(line.find("bind"), 1, ' ');
-                line.insert(line.find("bind") + 4 , 1, ' ');
-            }
+//            for (int i = 0; i < ; ++i) {
+//
+//            }
+//            if(line.find(',') != -1){
+//                line.insert(line.find(','), 1, ' ');
+//                line.insert(line.find(',') + 1 , 1, ' ');
+//            }
+//            if(line.find('-') != -1){
+//                line.insert(line.find('-'), 1, ' ');
+//                line.insert(line.find('-') + 1 , 1, ' ');
+//            }
+//            if(line.find('*') != -1){
+//                line.insert(line.find('*'), 1, ' ');
+//                line.insert(line.find('*') + 1 , 1, ' ');
+//            }
+//            if(line.find('/') != -1){
+//                line.insert(line.find('/'), 1, ' ');
+//                line.insert(line.find('/') + 1 , 1, ' ');
+//            }
+//            if(line.find('+') != -1){
+//                line.insert(line.find('+'), 1, ' ');
+//                line.insert(line.find('+') + 1 , 1, ' ');
+//            }
+//            if(line.find('=') != -1){
+//                line.insert(line.find('='), 1, ' ');
+//                line.insert(line.find('=') + 1 , 1, ' ');
+//            }
+//            if(line.find('{') != -1){
+//                line.insert(line.find('{'), 1, ' ');
+//                line.insert(line.find('{') + 1 , 1, ' ');
+//            }
+//            if(line.find('}') != -1){
+//                line.insert(line.find('}'), 1, ' ');
+//                line.insert(line.find('}') + 1 , 1, ' ');
+//            }
+//            if(line.find('\"') != -1){
+//                line.insert(line.find('\"'), 1, ' ');
+//                line.insert(line.find('\"') + 1 , 1, ' ');
+//            }
+//            if(line.find("bind") != -1){
+//                line.insert(line.find("bind"), 1, ' ');
+//                line.insert(line.find("bind") + 4 , 1, ' ');
+//            }
 
             splitToExpression(line);
         }

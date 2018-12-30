@@ -29,6 +29,10 @@ public:
 
     void setVarToPath(const map<string, string> &varToPath);
 
+    void addVarToPathValues(string &key, string path);
+
+    void addSymbolTableValues(string &key, double value);
+
     const map<string, double> &getPathToVal() const;
 
     void setPathToVal(const map<string, double> &pathToVal);

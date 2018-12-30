@@ -24,14 +24,30 @@ Parser::Parser(vector<string> vecOfCommand) {
             continue;
         } else if (vecOfCommand[i] == LINE_SEPARATOR) {
             commands.push_back(vecOfCommand[i]);
+        }else if(vecOfCommand[i] == "<" || vecOfCommand[i] == ">" ){
+            string str = vecOfCommand[i];
+            if(vecOfCommand[i+1] == "="){
+                str += vecOfCommand[i+1];
+                i++;
+            }
+            commands.push_back(str);
         } else if (isdigit(vecOfCommand[i].at(0)) || checkInVec(oper, vecOfCommand[i].at(0))) {
-           string str ;//= vecOfCommand[i];
-//            i++;
+           string str ;
+            //if the index is a number and the next index also.
             if(isdigit(vecOfCommand[i].at(vecOfCommand[i].size()-1)) && isdigit(vecOfCommand[i+1].at(0))){
                 str = vecOfCommand[i];
                 commands.push_back(str);
                 continue;
-            }else while (!(isdigit(vecOfCommand[i].at(vecOfCommand[i].size()-1)) && isdigit(vecOfCommand[i+1].at(0))) && (vecOfCommand[i] != "," && vecOfCommand[i] != LINE_SEPARATOR)) {
+            }//while we don't have two numbers in a sequence.
+            else while (!(isdigit(vecOfCommand[i].at(vecOfCommand[i].size()-1)) && isdigit(vecOfCommand[i+1].at(0))) /*&& (vecOfCommand[i] != "," && vecOfCommand[i] != LINE_SEPARATOR)*/) {
+                if(vecOfCommand[i] == "," || vecOfCommand[i] == LINE_SEPARATOR || vecOfCommand[i] == "{" || vecOfCommand[i] == "}"){
+                    break;
+                }
+                if(checkInVec(oper, vecOfCommand[i].at(0)) && !(isdigit(vecOfCommand[i+1].at(0)))){
+                    str = vecOfCommand[i];
+                    i++;
+                    break;
+                }
                 str += vecOfCommand[i];
                 i++;
             }
@@ -39,11 +55,13 @@ Parser::Parser(vector<string> vecOfCommand) {
             commands.push_back(str);
         }else if(vecOfCommand[i] == "\""){
             i++;
+            string str;
             while (vecOfCommand[i] != "\""){
-                string str;
+
                 str+= vecOfCommand[i];
                 i++;
             }
+            commands.push_back(str);
 
         } else{
             commands.push_back(vecOfCommand[i]);
@@ -52,7 +70,7 @@ Parser::Parser(vector<string> vecOfCommand) {
 
     this->stringCommandMap.insert(pair<string, Command*>("openDataServer",new OpenServerCommand));
     this->stringCommandMap.insert(pair<string, Command*>("connect",new ConnectCommand));
-//    this->stringCommandMap.insert(pair<string, Command*>("var", new VarCommand));
+    this->stringCommandMap.insert(pair<string, Command*>("var", new VarCommand));
 //    this->stringCommandMap.insert(pair<string, Command*>("print", new PrintCommand));
 //    this->stringCommandMap.insert(pair<string, Command*>("sleep", new SleepCommand));
 }
@@ -113,14 +131,16 @@ void Parser::parse() {
         }
 
         if (c != NULL) {
-            index += c->execute(commands, index);
+            index = c->execute(commands, index);
             //   delete (c); - not good!
         } else if (dataMaps->getSymbolTable().count(commands[index])) {
             c = new AssignCommand; // symbol without var //
-            index += c->execute(commands, index);
+            index = c->execute(commands, index);
             delete (c);
         } else if (commands.at(index) == "if" || commands.at(index) == "while") {
             callCondition();
+        }else{
+            index++;
         }
     }
     index = 0;
