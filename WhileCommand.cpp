@@ -27,8 +27,8 @@ int WhileCommand::execute(vector<string> vec, int i) {
 
     Parser* parser = new Parser(commands);
     ConditionParser* conditionP = new ConditionParser;
-    bool b = conditionP->checkCondition(condition);
-    while (b){
+   // bool b = conditionP->checkCondition(condition);
+    while (conditionP->checkCondition(condition)){
         parser->parse();
     }
     delete conditionP;
