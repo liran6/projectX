@@ -40,16 +40,25 @@ public:
 class OpenServerCommand : public Command
 {
 public:
+    struct arg_struct {
+        int arg1;
+        int arg2;
+    }argsForServer;
     virtual int execute(vector<string> vec, int i);
     virtual ~OpenServerCommand(){};
-    void SocketCreator(int port, int hz);
+    void* SocketCreator(arg_struct argStruct);
 };
 
 class ConnectCommand : public Command
 {
 public:
+    struct arg_struct {
+        string arg1;
+        int arg2;
+    }argsForConnect;
     ConnectCommand() : Command(){}
     virtual int execute(vector<string> vec, int i);
+    virtual void* OpenConnection(void *argStruct);
     virtual ~ConnectCommand(){};
 };
 
