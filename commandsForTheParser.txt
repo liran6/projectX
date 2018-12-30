@@ -1,3 +1,0 @@
-
-‫‪openDataServer‬‬ ‫‪openDataServer‬‬Command
-connect connectCommand

@@ -1,5 +1,5 @@
 //
-// Created by yuval on 18/12/18.
+// Created by yuvl on 18/12/18.
 //
 
 #include "Parser.h"
@@ -68,11 +68,11 @@ Parser::Parser(vector<string> vecOfCommand) {
         }
     }
 
-    this->stringCommandMap.insert(pair<string, Command*>("openDataServer",new OpenServerCommand));
-    this->stringCommandMap.insert(pair<string, Command*>("connect",new ConnectCommand));
-    this->stringCommandMap.insert(pair<string, Command*>("var", new VarCommand));
-    this->stringCommandMap.insert(pair<string, Command*>("print", new PrintCommand));
-    this->stringCommandMap.insert(pair<string, Command*>("sleep", new SleepCommand));
+    this->stringCommandMap.insert(pair<string, Command*>("openDataServer",new OpenServerCommand()));
+    this->stringCommandMap.insert(pair<string, Command*>("connect",new ConnectCommand()));
+    this->stringCommandMap.insert(pair<string, Command*>("var", new VarCommand()));
+    this->stringCommandMap.insert(pair<string, Command*>("print", new PrintCommand()));
+    this->stringCommandMap.insert(pair<string, Command*>("sleep", new SleepCommand()));
 }
 
 bool Parser:: checkInVec(vector<char> vec, char& c ){
