@@ -2,28 +2,39 @@
 #include "Command.h"
 #include "ShuntingYard.h"
 
+
+arg_struct2 argsForClient;
+
+/*ConnectCommand::ConnectCommand() {
+    this->argsForConnect;
+    this->ip = "";
+    this->port = 0;
+}*/
 int ConnectCommand::execute(vector<string> vec, int i) {
     ShuntingYard shuntingYard;
-    string ip = vec.at(i + 1);
-    int port = shuntingYard.expressionEvaluate(vec.at(i + 2))->calculate();
-    this->argsForConnect.arg1 = ip;
-    this->argsForConnect.arg2 = port;
+/*    this->ip = vec.at(i + 1);
+    this->port = shuntingYard.expressionEvaluate(vec.at(i + 2))->calculate();*/
+    argsForClient.arg1 = vec.at(i + 1);
+    argsForClient.arg2 = shuntingYard.expressionEvaluate(vec.at(i + 2))->calculate();
+    OpenConnection(&argsForClient);
 
     return 0;
 }
-void* ConnectCommand::OpenConnection(void *argsForConnect) {
+
+void* ConnectCommand::OpenConnection(void *param) {
     int sockfd, portno, n;
     struct sockaddr_in serv_addr;
     struct hostent *server;
-
+    void *args = param;
     char buffer[256];
+    arg_struct2* argsT = (arg_struct2*)param;
 
 /*    if (argc < 3) {
         fprintf(stderr,"usage %s hostname port\n", argv[0]);
         exit(0);
     }*/
 
-    portno = argsForConnect[2];
+    portno= argsT->arg2;
 
     /* Create a socket point */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -33,7 +44,7 @@ void* ConnectCommand::OpenConnection(void *argsForConnect) {
         exit(1);
     }
 
-    server = gethostbyname(argsForConnect[1]);
+    server = gethostbyname(argsT->arg1.c_str());
 
     if (server == NULL) {
         fprintf(stderr,"ERROR, no such host\n");

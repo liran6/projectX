@@ -33,32 +33,46 @@ class Command
 {
 public:
     virtual int execute(vector<string> vec, int i) = 0;
-
 };
+
+struct arg_struct {
+    int arg1;
+    int arg2;
+};
+struct arg_struct2 {
+    string arg1;
+    int arg2;
+};
+
+typedef struct arg_struct arg_struct;
+typedef struct arg_struct2 arg_struct2;
 
 //OpenDataServerCommand class
 class OpenServerCommand : public Command
 {
 public:
-    struct arg_struct {
-        int arg1;
-        int arg2;
-    }argsForServer;
+
     virtual int execute(vector<string> vec, int i);
     virtual ~OpenServerCommand(){};
-    void* SocketCreator(arg_struct argStruct);
+
 };
+void* SocketCreator(void*);
 
 class ConnectCommand : public Command
 {
 public:
+/*    int port;
+    string ip;
     struct arg_struct {
         string arg1;
         int arg2;
-    }argsForConnect;
-    ConnectCommand() : Command(){}
+    }argsForConnect;*/
+   /* ConnectCommand() : Command(){}*/
+
+    ConnectCommand();
+
     virtual int execute(vector<string> vec, int i);
-    virtual void* OpenConnection(void *argStruct);
+    virtual void* OpenConnection(void* arguments);
     virtual ~ConnectCommand(){};
 };
 
