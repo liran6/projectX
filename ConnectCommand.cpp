@@ -66,6 +66,7 @@ void* ConnectCommand::OpenConnection(void *param) {
        * will be read by server
     */
     while (true) {
+
         bzero(buffer, 256);
 
         /* Send message to the server */

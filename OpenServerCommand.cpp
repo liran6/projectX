@@ -90,6 +90,7 @@ void*  SocketCreator(void* args) {
 /* If connection is established then start communicating */
 
     while (true) {
+        cout << "opened the socket !!!!!!!!" << endl;
 
         bzero(buffer, 256);
         n = read(newsockfd, buffer, 255);
@@ -113,6 +114,8 @@ void*  SocketCreator(void* args) {
         sleep(1 / argsT->arg2); // optional line.
     }
 }
+
+//initialize path array for readThread
 
 /*
 int OpenServerCommand :: execute(vector<string> vec, int i) {
