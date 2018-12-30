@@ -10,14 +10,14 @@
 #include <pthread.h>
 #include "Command.h"
 #include "ShuntingYard.h"
-#include "ThrdCreator.h"
+
 using namespace std;
 
 int OpenServerCommand :: execute(vector<string> vec, int i){
     ShuntingYard shuntingYard;
     int port = shuntingYard.expressionEvaluate(vec.at(i + 1))->calculate();
     int hz = shuntingYard.expressionEvaluate(vec.at(i + 2))->calculate();
-    ThrdCreator tCreate;
+
 
 
     //pthread_t serverThread(SocketCreator, nullptr_t ,port, hz);
