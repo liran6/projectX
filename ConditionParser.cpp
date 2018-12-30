@@ -62,4 +62,6 @@
     if(condition == "!"){
         return !right;
     }
+    //will never happen...
+    return false;
 }
