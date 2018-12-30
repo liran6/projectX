@@ -15,10 +15,10 @@ int ConnectCommand::execute(vector<string> vec, int i) {
 /*    this->ip = vec.at(i + 1);
     this->port = shuntingYard.expressionEvaluate(vec.at(i + 2))->calculate();*/
     argsForClient.arg1 = vec.at(i + 1);
-    argsForClient.arg2 = shuntingYard.expressionEvaluate(vec.at(i + 2))->calculate();
+    argsForClient.arg2 = static_cast<int>(shuntingYard.expressionEvaluate(vec.at(i + 2))->calculate());
     OpenConnection(&argsForClient);
 
-    return 0;
+    return i+3;
 }
 
 void* ConnectCommand::OpenConnection(void *param) {
