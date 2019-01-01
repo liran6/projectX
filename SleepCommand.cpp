@@ -13,7 +13,7 @@ int SleepCommand::execute(vector<string> vec, int i) {
     string result;
     string var = vec[i];
     DataMaps* dataMaps = DataMaps::getInstance();
-
+    i++;
     for (vec[i]; vec[i] != LINE_SEPARATOR ; i++) {
 
         if (dataMaps->getSymbolTable().count(vec[i]) == 0){
