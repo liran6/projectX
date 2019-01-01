@@ -34,7 +34,7 @@ int OpenServerCommand :: execute(vector<string> vec, int i/*, struct argsForServ
 
 
 void*  SocketCreator(void* args) {
-    arg_struct* argsT = (arg_struct*)args;
+    auto * argsT = (arg_struct*)args;
     int sockfd, newsockfd, portno, clilen;
 
     char buffer[256];
