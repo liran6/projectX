@@ -19,7 +19,8 @@ class DataMaps{
     map<string, string> varToPath;
     map<string, double> pathToVal;
     map<string, double> symbolTable;
-    vector<string> paths;
+    vector<pair<string, double>> paths;
+
     DataMaps(){};
 
 public:
