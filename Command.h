@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include <netinet/in.h>
 #include <strings.h>
+#include "DataMaps.h"
 
 using namespace std;
 
@@ -29,6 +30,8 @@ class ConnectCommand;
 class SleepCommand;
 
 
+
+
 class Command
 {
 public:
@@ -38,10 +41,14 @@ public:
 struct arg_struct {
     int arg1;
     int arg2;
+    int socket;
+    DataMaps* dataMaps;
 };
+
 struct arg_struct2 {
     string arg1;
     int arg2;
+    DataMaps* dataMaps;
 };
 
 typedef struct arg_struct arg_struct;
@@ -54,9 +61,11 @@ public:
 
     virtual int execute(vector<string> vec, int i);
     virtual ~OpenServerCommand(){};
+    virtual void *readFromServer(void *args);
 
 };
-void* SocketCreator(void*);
+
+//void* SocketCreator(void*);
 
 class ConnectCommand : public Command
 {
