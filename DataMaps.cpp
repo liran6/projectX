@@ -67,7 +67,15 @@ void DataMaps::setPathToVal(string buffFromServer) {
     }
     int i;
     for(i = 0; i< sizeof(values); i++){
-        this->pathToVal;
+        paths[i].second = values[i];
+        string path = paths[i].first;
+        if (varToPath.count())
+       /* for (auto &it : binds) {
+            string alt_path = it.second.substr(1, it.second.length() - 2);
+            if (it.second == path || alt_path == path) {
+                symbol_table[it.first] = value;
+            }
+        }*/
     }
 
 }
