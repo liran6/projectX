@@ -60,11 +60,11 @@ void DataMaps::setVarToPath(const map<string, string> &varToPath) {
 //void DataMaps::setPathToVal(const map<string, double> &pathToVal) {
 //    DataMaps::pathToVal = pathToVal;
 //}
-void DataMaps::setPathToVal(char* buffFromServer) {
+void DataMaps::setPathToVal(string buffFromServer) {
     int i;
 
     for(i = 0; i< sizeof(buffFromServer); i++){
-        this->pathToVal
+        this->pathToVal;
     }
 
 }

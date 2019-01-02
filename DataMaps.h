@@ -36,7 +36,7 @@ public:
     const map<string, double> &getPathToVal() const;
 
     //void setPathToVal(const map<string, double> &pathToVal);
-    void setPathToVal(char* buffFromServer);
+    void setPathToVal(string buffFromServer);
 
     const map<string, double> &getSymbolTable() const;
 

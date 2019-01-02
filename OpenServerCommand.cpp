@@ -107,20 +107,36 @@ void *OpenServerCommand::readFromServer(void *args) {
     argsToSocket.connectOrNot = argsT->connectOrNot;
 
     delete argsT;
-    char buffer[256];
+    //char buffer[256];
+    string buffer;
     char c;
     ssize_t n = 0;
     while (argsToSocket.connectOrNot) {
-        //bzero(buffer, sizeof(buffer));
+        do {
+            n = read(argsToSocket.socket, &c, 1);
+            buffer += c;
+            if (n < 0) {
+                perror("Eroor reading from socket");
+                exit(1);
+            }   else if (n == 0)    {
+                exit(1);
+            }
+        } while (c != '\n');
+        argsToSocket.dataMaps->setPathToVal(buffer);
+        buffer = "";
+        sleep(1 / argsToSocket.arg2); // optional line?.
+        //data.setPathValues(buffer);
+/*        bzero(buffer, sizeof(buffer));
         n = read(argsToSocket.socket, buffer, sizeof(buffer));
 
         if (n < 0) {
             perror("ERROR reading from socket");
             exit(1);
         }
-        printf("Here is the message from the buffer: %s\n", buffer);
+
+        printf("Here is the message from the buffer: %s\n", buffer);*/
 //        argsToSocket.dataMaps->setPathToVal(buffer);
-        sleep(1 / argsToSocket.arg2); // optional line?.
+
     }
 
 /*    while (data.getRunning()) {
