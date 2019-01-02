@@ -2,6 +2,7 @@
 // Created by liran-baruch on 12/26/18.
 //
 #include "DataMaps.h"
+#include <sstream>
 
 DataMaps* DataMaps::instance = nullptr;
 mutex myLock;
@@ -57,13 +58,15 @@ void DataMaps::setVarToPath(const map<string, string> &varToPath) {
     DataMaps::varToPath = varToPath;
 }
 
-//void DataMaps::setPathToVal(const map<string, double> &pathToVal) {
-//    DataMaps::pathToVal = pathToVal;
-//}
 void DataMaps::setPathToVal(string buffFromServer) {
+    istringstream ss(buffFromServer);
+    string token;
+    vector<double> values;
+    while(getline(ss, token, ',')) {
+        values.push_back(stod(token));
+    }
     int i;
-
-    for(i = 0; i< sizeof(buffFromServer); i++){
+    for(i = 0; i< sizeof(values); i++){
         this->pathToVal;
     }
 

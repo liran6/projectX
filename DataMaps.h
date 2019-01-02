@@ -10,6 +10,7 @@
 #include <string>
 #include <iostream>
 #include <mutex>
+#include <vector>
 
 using namespace std;
 
@@ -18,7 +19,7 @@ class DataMaps{
     map<string, string> varToPath;
     map<string, double> pathToVal;
     map<string, double> symbolTable;
-    mutex mylock;
+    vector<string> paths;
     DataMaps(){};
 
 public:
