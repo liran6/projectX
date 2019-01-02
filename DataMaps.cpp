@@ -32,6 +32,7 @@ void DataMaps::setSymbolTableValue(string &key, double value) {
         pathToVal[path] = value;
     }
     this->symbolTable[key] = value;
+
     myLock.unlock();
 }
 
