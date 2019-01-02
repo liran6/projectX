@@ -8,7 +8,7 @@ mutex myLock;
 
 DataMaps *DataMaps::getInstance() {
 
-    if(instance == nullptr){
+   if(instance == nullptr){
         instance = new DataMaps();
     }
     return instance;

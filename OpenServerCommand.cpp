@@ -13,22 +13,27 @@
 #include "Command.h"
 #include "ShuntingYard.h"
 
-//arg_struct argsForServer;
+arg_struct1 argsForServer;
 
 using namespace std;
 
-int OpenServerCommand :: execute(vector<string> vec, int i/*, struct argsForServer* a*/){
-
+int OpenServerCommand :: execute(vector<string> vec, int i){
 
     ShuntingYard shuntingYard;
     pthread_t pthrd;
+    DataMaps* dataMaps = DataMaps::getInstance();
+    dataMaps->initializePaths();
 
-    auto argsForServer = new arg_struct{};
+
+    auto argsForServer = new arg_struct1;
 
     int port = shuntingYard.expressionEvaluate(vec.at(i + 1))->calculate();
     int hz = shuntingYard.expressionEvaluate(vec.at(i + 2))->calculate();
+
     argsForServer->arg1 = port;
     argsForServer->arg2 = hz;
+    argsForServer->dataMaps = dataMaps;
+    argsForServer->connectOrNot = false;
 /*    cout << "hhhh" << endl;
     scanf("%d", &gh);*/
     int sockfd, newsockfd, portno, clilen;
@@ -80,14 +85,11 @@ int OpenServerCommand :: execute(vector<string> vec, int i/*, struct argsForServ
         perror("ERROR on accept");
         exit(1);
     }
-
-
-
-
-
+    argsForServer->socket = newsockfd;
+    argsForServer->connectOrNot= true;
 
     //pthread_create(&pthrd, nullptr ,&SocketCreator,(void*) &argsForServer);
-//    pthread_create(&pthrd, nullptr ,&readFromServer,(void*) &argsForServer);
+    pthread_create(&pthrd, nullptr ,&OpenServerCommand::readFromServer,(void*) argsForServer);
 
 
 
@@ -95,19 +97,21 @@ int OpenServerCommand :: execute(vector<string> vec, int i/*, struct argsForServ
 }
 
 void *OpenServerCommand::readFromServer(void *args) {
-    //auto *p = (struct Parameters *) pparams;
-    auto * argsT = (arg_struct*)args;
-    arg_struct argsToSocket;
+
+    auto * argsT = (arg_struct1*)args;
+    arg_struct1 argsToSocket;
     argsToSocket.arg2 = argsT->arg2;
     argsToSocket.arg1 = argsT->arg1;
     argsToSocket.socket = argsT->socket;
+    argsToSocket.dataMaps = argsT->dataMaps->getInstance();
+    argsToSocket.connectOrNot = argsT->connectOrNot;
 
     delete argsT;
     char buffer[256];
     char c;
     ssize_t n = 0;
-    while (true) {
-        bzero(buffer, sizeof(buffer));
+    while (argsToSocket.connectOrNot) {
+        //bzero(buffer, sizeof(buffer));
         n = read(argsToSocket.socket, buffer, sizeof(buffer));
 
         if (n < 0) {
@@ -116,7 +120,7 @@ void *OpenServerCommand::readFromServer(void *args) {
         }
 
         printf("Here is the message from the buffer: %s\n", buffer);
-   //     argsToSocket.dataMaps->setPathToVal(buffer);
+//        argsToSocket.dataMaps->setPathToVal(buffer);
         sleep(1 / argsToSocket.arg2); // optional line?.
     }
 

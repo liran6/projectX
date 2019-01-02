@@ -29,20 +29,18 @@ class PrintCommand;
 class ConnectCommand;
 class SleepCommand;
 
-
-
-
 class Command
 {
 public:
     virtual int execute(vector<string> vec, int i) = 0;
 };
 
-struct arg_struct {
+struct arg_struct1 {
     int arg1;
     int arg2;
     int socket;
     DataMaps* dataMaps;
+    bool connectOrNot;
 };
 
 struct arg_struct2 {
@@ -51,8 +49,11 @@ struct arg_struct2 {
     DataMaps* dataMaps;
 };
 
-typedef struct arg_struct arg_struct;
+
+typedef struct arg_struct1 arg_struct1;
 typedef struct arg_struct2 arg_struct2;
+
+
 
 //OpenDataServerCommand class
 class OpenServerCommand : public Command
@@ -60,12 +61,11 @@ class OpenServerCommand : public Command
 public:
 
     virtual int execute(vector<string> vec, int i);
+    static void *readFromServer(void *args);
     virtual ~OpenServerCommand(){};
-    virtual void *readFromServer(void *args);
 
 };
 
-//void* SocketCreator(void*);
 
 class ConnectCommand : public Command
 {
