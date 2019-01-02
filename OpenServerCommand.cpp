@@ -19,7 +19,6 @@ using namespace std;
 
 int OpenServerCommand :: execute(vector<string> vec, int i/*, struct argsForServer* a*/){
 
-
     ShuntingYard shuntingYard;
     pthread_t pthrd;
 
