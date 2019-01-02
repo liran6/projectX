@@ -94,7 +94,7 @@ void DataMaps::addSymbolTableValues(string &key, double value) {
     setSymbolTableValue(key, value);
 }
 void DataMaps::initializePaths() {
-    this->pathToVal = {pair<string, double>("/instrumentation/airspeed-indicator/indicated-speed-kt", 0),
+    this->paths = {pair<string, double>("/instrumentation/airspeed-indicator/indicated-speed-kt", 0),
                         pair<string, double>("/instrumentation/altimeter/indicated-altitude-ft", 0),
                         pair<string, double>("/instrumentation/altimeter/pressure-alt-ft", 0),
                         pair<string, double>("/instrumentation/attitude-indicator/indicated-pitch-deg", 0),
