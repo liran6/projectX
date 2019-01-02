@@ -103,7 +103,7 @@ void *OpenServerCommand::readFromServer(void *args) {
     argsToSocket.arg2 = argsT->arg2;
     argsToSocket.arg1 = argsT->arg1;
     argsToSocket.socket = argsT->socket;
-    argsToSocket.dataMaps = argsT->dataMaps->getInstance();
+    argsToSocket.dataMaps = argsT->dataMaps;
     argsToSocket.connectOrNot = argsT->connectOrNot;
 
     delete argsT;
@@ -122,6 +122,7 @@ void *OpenServerCommand::readFromServer(void *args) {
                 exit(1);
             }
         } while (c != '\n');
+        buffer = buffer.substr(0,buffer.size()-1);
         argsToSocket.dataMaps->setPathToVal(buffer);
         buffer = "";
         sleep(1 / argsToSocket.arg2); // optional line?.
