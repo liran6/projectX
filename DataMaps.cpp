@@ -3,6 +3,7 @@
 //
 #include "DataMaps.h"
 #include <sstream>
+#include <algorithm>
 
 DataMaps* DataMaps::instance = nullptr;
 mutex myLock;
@@ -65,17 +66,17 @@ void DataMaps::setPathToVal(string buffFromServer) {
     while(getline(ss, token, ',')) {
         values.push_back(stod(token));
     }
-    int i;
-    for(i = 0; i< sizeof(values); i++){
+    int i = 0;
+    for(i ; i< values.size(); i++){
         paths[i].second = values[i];
         string path = paths[i].first;
-        if (varToPath.count())
-       /* for (auto &it : binds) {
-            string alt_path = it.second.substr(1, it.second.length() - 2);
-            if (it.second == path || alt_path == path) {
-                symbol_table[it.first] = value;
+        map<string, string>::iterator it;
+        for (it = varToPath.begin();it != varToPath.end() ; it++) {
+            if (it->second == path){
+                string key = it->first;
+                setSymbolTableValue(key, values[i]);
             }
-        }*/
+        }
     }
 
 }
