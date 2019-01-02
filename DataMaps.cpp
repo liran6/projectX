@@ -65,11 +65,11 @@ void DataMaps::setPathToVal(string buffFromServer) {
     while(getline(ss, token, ',')) {
         values.push_back(stod(token));
     }
-    int i;
+/*    int i;
     for(i = 0; i< sizeof(values); i++){
         paths[i].second = values[i];
         string path = paths[i].first;
-        if (varToPath.count())
+        if (varToPath.count())*/
        /* for (auto &it : binds) {
             string alt_path = it.second.substr(1, it.second.length() - 2);
             if (it.second == path || alt_path == path) {
@@ -78,7 +78,7 @@ void DataMaps::setPathToVal(string buffFromServer) {
         }*/
     }
 
-}
+
 
 const map<string, double> &DataMaps::getPathToVal() const {
     return pathToVal;

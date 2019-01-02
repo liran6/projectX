@@ -12,31 +12,93 @@ arg_struct2 argsForClient;
 }*/
 int ConnectCommand::execute(vector<string> vec, int i) {
     ShuntingYard shuntingYard;
-/*    this->ip = vec.at(i + 1);
-    this->port = shuntingYard.expressionEvaluate(vec.at(i + 2))->calculate();*/
-    argsForClient.arg1 = vec.at(i + 1);
-    argsForClient.arg2 = static_cast<int>(shuntingYard.expressionEvaluate(vec.at(i + 2))->calculate());
+    auto argsForClient = new arg_struct2;
+
+    argsForClient->ip = vec.at(i + 1);
+    argsForClient->port = shuntingYard.expressionEvaluate(vec.at(i + 2))->calculate();
+
+    int sockfd, portno;
+    struct sockaddr_in serv_addr;
+    struct hostent *server;
+    portno = argsForClient->port;
+
+    /* Create a socket point */
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+
+    if (sockfd < 0) {
+        perror("ERROR opening socket");
+        exit(1);
+    }
+    argsForClient->socket=sockfd;
+
+    server = gethostbyname(argsForClient->ip.c_str());
+
+    if (server == NULL) {
+        fprintf(stderr, "ERROR, no such host\n");
+        exit(0);
+    }
+
+    bzero((char *) &serv_addr, sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    bcopy((char *) server->h_addr, (char *) &serv_addr.sin_addr.s_addr, server->h_length);
+    serv_addr.sin_port = htons(portno);
+
+    /* Now connect to the server */
+    if (connect(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
+        perror("ERROR connecting");
+        exit(1);
+    }
+
     OpenConnection(&argsForClient);
 
     return i+3;
 }
 
 void* ConnectCommand::OpenConnection(void *param) {
-    int sockfd, portno, n;
+
+    /* Now ask for a message from the user, this message
+       * will be read by server
+    */
+    while (true) {
+        char buffer[256];
+        bzero(buffer, 256);
+        int n;
+        auto *argsT = (arg_struct2 *) param;
+        arg_struct2 argsToConnect;
+        argsToConnect.port = argsT->port;
+        argsToConnect.ip = argsT->ip;
+        argsToConnect.socket = argsT->socket;
+        argsToConnect.dataMaps = argsT->dataMaps;
+        delete(&argsT);
+
+        /* Send message to the server */
+        n = write(argsToConnect.socket, buffer, strlen(buffer));
+
+        if (n < 0) {
+            perror("ERROR writing to socket");
+            exit(1);
+        }
+
+        printf("%s\n", buffer);
+
+        return 0;
+    }
+
+/*    int sockfd, portno, n;
     struct sockaddr_in serv_addr;
     struct hostent *server;
     void *args = param;
     char buffer[256];
     arg_struct2 *argsT = (arg_struct2 *) param;
 
-/*    if (argc < 3) {
-        fprintf(stderr,"usage %s hostname port\n", argv[0]);
-        exit(0);
-    }*/
+//    if (argc < 3) {
+ //       fprintf(stderr,"usage %s hostname port\n", argv[0]);
+ //       exit(0);
+//    }
 
-    portno = argsT->arg2;
+    portno = argsT->port;
 
-    /* Create a socket point */
+    /* Create a socket point
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
     if (sockfd < 0) {
@@ -56,40 +118,12 @@ void* ConnectCommand::OpenConnection(void *param) {
     bcopy((char *) server->h_addr, (char *) &serv_addr.sin_addr.s_addr, server->h_length);
     serv_addr.sin_port = htons(portno);
 
-    /* Now connect to the server */
+    /* Now connect to the server
     if (connect(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
         perror("ERROR connecting");
         exit(1);
-    }
+    }*/
 
-    /* Now ask for a message from the user, this message
-       * will be read by server
-    */
-    while (true) {
-
-        bzero(buffer, 256);
-
-        /* Send message to the server */
-        n = write(sockfd, buffer, strlen(buffer));
-
-        if (n < 0) {
-            perror("ERROR writing to socket");
-            exit(1);
-        }
-
-        /* Now read server response */
-        bzero(buffer, 256);
-        n = read(sockfd, buffer, 255);
-
-        if (n < 0) {
-            perror("ERROR reading from socket");
-            exit(1);
-        }
-
-        printf("%s\n", buffer);
-
-        return 0;
-    }
 }
 
 
