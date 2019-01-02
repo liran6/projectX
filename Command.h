@@ -44,9 +44,11 @@ struct arg_struct1 {
 };
 
 struct arg_struct2 {
-    string arg1;
-    int arg2;
+    string ip;
+    int port;
     DataMaps* dataMaps;
+    int socket;
+    bool connectOrNot;
 };
 
 
@@ -74,7 +76,7 @@ public:
     string ip;
     struct arg_struct {
         string arg1;
-        int arg2;
+        int port;
     }argsForConnect;*/
    /* ConnectCommand() : Command(){}*/
 

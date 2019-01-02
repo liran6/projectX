@@ -13,7 +13,7 @@
 #include "Command.h"
 #include "ShuntingYard.h"
 
-arg_struct1 argsForServer;
+//arg_struct1 argsForServer;
 
 using namespace std;
 
@@ -98,7 +98,7 @@ int OpenServerCommand :: execute(vector<string> vec, int i){
 
 void *OpenServerCommand::readFromServer(void *args) {
 
-    auto * argsT = (arg_struct1*)args;
+    auto *argsT = (arg_struct1 *) args;
     arg_struct1 argsToSocket;
     argsToSocket.arg2 = argsT->arg2;
     argsToSocket.arg1 = argsT->arg1;
@@ -118,11 +118,11 @@ void *OpenServerCommand::readFromServer(void *args) {
             if (n < 0) {
                 perror("Eroor reading from socket");
                 exit(1);
-            }   else if (n == 0)    {
+            } else if (n == 0) {
                 exit(1);
             }
         } while (c != '\n');
-        buffer = buffer.substr(0,buffer.size()-1);
+        buffer = buffer.substr(0, buffer.size() - 1);
         argsToSocket.dataMaps->setPathToVal(buffer);
         buffer = "";
         sleep(1 / argsToSocket.arg2); // optional line?.
@@ -139,6 +139,7 @@ void *OpenServerCommand::readFromServer(void *args) {
 //        argsToSocket.dataMaps->setPathToVal(buffer);
 
     }
+}
 
 /*    while (data.getRunning()) {
         do {
@@ -153,7 +154,7 @@ void *OpenServerCommand::readFromServer(void *args) {
         } while (c != '\n');
         dataMap.setPathValues(buffer);
         buffer = "";*/
-    }
+
 
 /*
 void*  SocketCreator(void* args) {
@@ -234,7 +235,7 @@ void*  SocketCreator(void* args) {
         //    perror("ERROR writing to socket");
         //    exit(1);
        // }
-        sleep(1 / argsT->arg2); // optional line.
+        sleep(1 / argsT->port); // optional line.
     }
 }
 
@@ -248,7 +249,7 @@ int OpenServerCommand :: execute(vector<string> vec, int i) {
     double port = shuntingYard.expressionEvaluate(vec.at(i + 1))->calculate();
     double hz = shuntingYard.expressionEvaluate(vec.at(i + 2))->calculate();
     portAndHz->arg1 = (int) port;
-    portAndHz->arg2 = (int) hz;
+    portAndHz->port = (int) hz;
     pthread_mutex_t *lock;
     pthread_t pthrd;
     //struct argsForServer *argsT = (struct argsForServer*)args;
@@ -329,7 +330,7 @@ int OpenServerCommand :: execute(vector<string> vec, int i) {
             perror("ERROR writing to socket");
             exit(1);
         }
-        sleep(1 / portAndHz->arg2); // optional line.
+        sleep(1 / portAndHz->port); // optional line.
 
         return i + 3;
     }
