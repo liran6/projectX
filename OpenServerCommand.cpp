@@ -49,6 +49,7 @@ int OpenServerCommand :: execute(vector<string> vec, int i/*, struct argsForServ
 
     bzero((char *) &serv_addr, sizeof(serv_addr));
     //portno = argsT->arg1;
+    argsForServer->socket = sockfd;
     portno = argsForServer->arg1;
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = INADDR_ANY;
@@ -70,7 +71,7 @@ int OpenServerCommand :: execute(vector<string> vec, int i/*, struct argsForServ
     listen(sockfd, 5);
     clilen = sizeof(cli_addr);
 
-
+    argsForServer->socket = sockfd;
 /* Accept actual connection from the client */
 
     newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, (socklen_t *) &clilen);
@@ -79,14 +80,14 @@ int OpenServerCommand :: execute(vector<string> vec, int i/*, struct argsForServ
         perror("ERROR on accept");
         exit(1);
     }
-    argsForServer->socket = newsockfd;
+
 
 
 
 
 
     //pthread_create(&pthrd, nullptr ,&SocketCreator,(void*) &argsForServer);
-    pthread_create(&pthrd, nullptr ,&readFromServer,(void*) &argsForServer);
+//    pthread_create(&pthrd, nullptr ,&readFromServer,(void*) &argsForServer);
 
 
 
@@ -115,7 +116,7 @@ void *OpenServerCommand::readFromServer(void *args) {
         }
 
         printf("Here is the message from the buffer: %s\n", buffer);
-        argsToSocket.dataMaps->setPathToVal(buffer);
+   //     argsToSocket.dataMaps->setPathToVal(buffer);
         sleep(1 / argsToSocket.arg2); // optional line?.
     }
 
